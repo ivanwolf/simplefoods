@@ -11,7 +11,7 @@ def setup
   # examine what's in node_modules
   system! "yarn check --check-files || yarn install"
 
-  log "Dropping & recreating the #{ENV.fetch("RAILS_ENV")} database"
+  log "Dropping & recreating the development database"
   # Note that the very first time this runs, db:reset
   # will fail, but this failure is fixed by
   # doing a db:migrate
