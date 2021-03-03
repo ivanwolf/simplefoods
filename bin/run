@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Remove server.pid if present
+if [ -f tmp/pids/server.pid ]; then
+  rm tmp/pids/server.pid
+fi
+
+# We must bind to 0.0.0.0 inside a
+# Docker container or the port won't forward
+
+bin/rails server --binding=0.0.0.0
