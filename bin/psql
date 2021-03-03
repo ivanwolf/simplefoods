@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+echo "[ bin/psql ] Connecting to simplefoods_development"
+
+PGPASSWORD=postgres psql -U postgres \
+                         -h postgres \
+                         -p 5432 \
+                         simplefoods_development
