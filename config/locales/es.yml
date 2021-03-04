@@ -12,3 +12,12 @@ es:
       product:
         name: "Nombre"
         price: "Precio"
+    errors:
+      models:
+        product:
+          attributes:
+            name:
+              blank: "Tiene que estar presente"
+            price:
+              not_a_number: "Tiene que ser un número"
+              greater_than: "Tiene que ser mayor a cero"
