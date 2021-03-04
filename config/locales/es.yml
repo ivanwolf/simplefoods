@@ -8,6 +8,9 @@ es:
       product:
         one: "Producto"
         other: "Productos"
+      workday:
+        one: "Jornada"
+        other: "Jornadas"
     attributes:
       product:
         name: "Nombre"

@@ -10,7 +10,18 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="flex flex-col bg-gray-100 h-full">
+  <body class="flex h-full">
+    <nav class="w-64 bg-yellow-300 shadow-lg pt-32 flex flex-col">
+
+        <%= link_to workdays_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-400 rounded-lg #{class_names("bg-yellow-400": current_page?(workdays_path))}" do %>
+          <%= Workday.model_name.human(count: 2) %>
+        <% end %>
+        <%= link_to products_path, class: "mx-4 px-2 py-2 hover:bg-yellow-400 rounded-lg #{class_names("bg-yellow-400": current_page?(products_path))}" do %>
+          <%= Product.model_name.human(count: 2) %>
+        <% end %>
+    </nav>
+    <div class="bg-gray-100 w-full">
     <%= yield %>
+    </div>
   </body>
 </html>
