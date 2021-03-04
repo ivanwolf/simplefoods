@@ -1,0 +1,24 @@
+<div class="p-32">
+  <div class="flex items-center mb-4">
+    <%= link_to "javascript:history.back()", class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
+    <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
+
+    <%end %>
+    <h1 class="text-3xl">Agregar producto</h1>
+  </div>
+  <div class="border bg-white rounded-lg p-4 w-96">
+    <%= form_for @product do |f| %>
+      <div class="flex flex-col mb-2">
+        <%= f.label :name, class: "mb-2" %>
+        <%= f.text_field :name, class: "border rounded-md h-10 p-4" %>
+      </div>
+      <div class="flex flex-col mb-4">
+        <%= f.label :price, class: "mb-2" %>
+        <%= f.text_field :price, class: "border rounded-md h-10 p-4"%>
+      </div>
+      <%= f.submit type: :submit, class: "px-4 py-2 rounded-md bg-yellow-500 text-white cursor-pointer" %>
+    <% end %>
+  </div>
+
+  
+</div>

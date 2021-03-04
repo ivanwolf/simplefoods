@@ -19,6 +19,9 @@ module Simplefoods
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # Our users speack spanish
+    config.i18n.default_locale = 'es'
+
     # We want to be able to use any feature of our database,
     # and the SQL format makes that possible
     config.active_record.schema_format = :sql

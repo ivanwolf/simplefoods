@@ -1,0 +1,14 @@
+es:
+  helpers:
+    submit:
+      product:
+        create: "Agregar %{model}"
+  activerecord:
+    models:
+      product:
+        one: "Producto"
+        other: "Productos"
+    attributes:
+      product:
+        name: "Nombre"
+        price: "Precio"
