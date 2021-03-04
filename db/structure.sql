@@ -255,7 +255,7 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.workdays (
     id bigint NOT NULL,
-    date date NOT NULL,
+    work_date date NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL
 );

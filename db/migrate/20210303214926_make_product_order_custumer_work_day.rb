@@ -16,7 +16,7 @@ class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
     end
 
     create_table :workdays, comment: "List of workdays" do |t|
-      t.date :date, null: false
+      t.date :work_date, null: false
       t.timestamps null: false
     end
 
