@@ -27,6 +27,9 @@ gem 'jbuilder', '~> 2.7'
 # Needed because ruby 3.0
 gem 'rexml'
 
+# Support daynames
+gem 'rails-i18n', '~> 6.0.0'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
