@@ -1,6 +1,8 @@
 es:
   helpers:
     submit:
+      workday:
+        create: "Crear %{model}"
       product:
         create: "Crear %{model}"
   activerecord:
@@ -15,6 +17,8 @@ es:
       product:
         name: "Nombre"
         price: "Precio"
+      workday:
+        work_date: "Fecha"
     errors:
       models:
         product:
