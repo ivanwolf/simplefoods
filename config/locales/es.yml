@@ -2,7 +2,7 @@ es:
   helpers:
     submit:
       product:
-        create: "Agregar %{model}"
+        create: "Crear %{model}"
   activerecord:
     models:
       product:
