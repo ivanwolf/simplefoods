@@ -1,0 +1,9 @@
+<div class="p-32">
+  <div class="flex items-center mb-4">
+    <%= link_to workdays_path, class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
+    <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
+
+    <%end %>
+    <h1 class="text-3xl">Jornada: <%= @workday.work_date %></h1>
+  </div>
+</div>

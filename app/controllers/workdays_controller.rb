@@ -3,24 +3,26 @@ class WorkdaysController < ApplicationController
     @workdays = Workday.all
   end
 
+  def show
+    @workday = Workday.find(params[:id])
+  end
+
   def new
     @workday = Workday.new(work_date: Date.today)
   end
 
   def create
-    @product = Workday.new(product_params)
-    # if @product.save
-    #   redirect_to products_path
-    # else
-    #   render :new
-    # end
+    @workday = Workday.new(workday_params)
+    if @workday.save
+      redirect_to @workday
+    else
+      render :new
+    end
   end
 
   private
 
-  def product_params
-    params.require(:product).permit(
-    %i[name price]
-    )
+  def workday_params
+    params.require(:workday).permit(:work_date)
   end
 end
