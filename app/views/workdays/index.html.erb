@@ -1,8 +1,18 @@
 <div class="pt-32 px-16">
-  <div class="flex items-center justify-between">
-    <h1 class="text-3xl mb-4">Jornadas</h1>
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-3xl">Jornadas</h1>
     <div>
-      <%= link_to "Agregar una jornada", new_workday_path %>
+      <%= link_to "Agregar una jornada", new_workday_path, class: "px-4 py-2 rounded-md bg-green-500 text-white  " %>
     </div>
+  </div>
+  <div class="bg-white border rounded-lg p-4 flex flex-col">
+    <% @workdays.each_with_index do |workday, index|%>
+      <div class="<%= class_names("flex justify-between", "pb-2 mb-2 border-b": index != @workdays.size - 1) %>">
+      <%= link_to workday do%>
+      <%= l(workday.work_date, format: "%A %d de %B") %>
+      <% end %>
+      <%= link_to "Eliminar", workday, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar la jornada? Se perderán todos los datos" }%>
+      </div>
+    <% end %>
   </div>
 </div>

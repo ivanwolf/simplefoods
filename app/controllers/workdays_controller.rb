@@ -20,6 +20,14 @@ class WorkdaysController < ApplicationController
     end
   end
 
+  def destroy
+    @workday = Workday.find(params[:id])
+
+    @workday.destroy!
+
+    redirect_to workdays_path
+  end
+
   private
 
   def workday_params
