@@ -13,6 +13,7 @@ RUN apt-get install -y libpq-dev postgresql-client
 RUN apt-get install -y libxml2-dev libxslt1-dev
 
 # for a JS runtime
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
 RUN apt-get install -y nodejs yarn
 
 ENV APP_HOME /simplefoods
