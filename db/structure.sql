@@ -250,6 +250,47 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: workday_products; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.workday_products (
+    id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    workday_id bigint NOT NULL,
+    stock integer NOT NULL,
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL,
+    CONSTRAINT stock_cant_be_negative CHECK ((stock >= 0))
+);
+
+
+--
+-- Name: TABLE workday_products; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.workday_products IS 'List of products availables for a workday';
+
+
+--
+-- Name: workday_products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.workday_products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: workday_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.workday_products_id_seq OWNED BY public.workday_products.id;
+
+
+--
 -- Name: workdays; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -288,47 +329,6 @@ ALTER SEQUENCE public.workdays_id_seq OWNED BY public.workdays.id;
 
 
 --
--- Name: workway_products; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.workway_products (
-    id bigint NOT NULL,
-    product_id bigint NOT NULL,
-    workday_id bigint NOT NULL,
-    stock integer NOT NULL,
-    created_at timestamp(6) with time zone NOT NULL,
-    updated_at timestamp(6) with time zone NOT NULL,
-    CONSTRAINT stock_cant_be_negative CHECK ((stock >= 0))
-);
-
-
---
--- Name: TABLE workway_products; Type: COMMENT; Schema: public; Owner: -
---
-
-COMMENT ON TABLE public.workway_products IS 'List of products availables for a workday';
-
-
---
--- Name: workway_products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.workway_products_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: workway_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.workway_products_id_seq OWNED BY public.workway_products.id;
-
-
---
 -- Name: addresses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -364,17 +364,17 @@ ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 
 --
+-- Name: workday_products id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.workday_products ALTER COLUMN id SET DEFAULT nextval('public.workday_products_id_seq'::regclass);
+
+
+--
 -- Name: workdays id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.workdays ALTER COLUMN id SET DEFAULT nextval('public.workdays_id_seq'::regclass);
-
-
---
--- Name: workway_products id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.workway_products ALTER COLUMN id SET DEFAULT nextval('public.workway_products_id_seq'::regclass);
 
 
 --
@@ -434,19 +434,19 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: workday_products workday_products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.workday_products
+    ADD CONSTRAINT workday_products_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: workdays workdays_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.workdays
     ADD CONSTRAINT workdays_pkey PRIMARY KEY (id);
-
-
---
--- Name: workway_products workway_products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.workway_products
-    ADD CONSTRAINT workway_products_pkey PRIMARY KEY (id);
 
 
 --
@@ -513,31 +513,39 @@ COMMENT ON INDEX public.index_products_on_name IS 'No two products should have t
 
 
 --
--- Name: index_workway_products_on_product_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_workday_products_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_workway_products_on_product_id ON public.workway_products USING btree (product_id);
-
-
---
--- Name: index_workway_products_on_workday_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_workway_products_on_workday_id ON public.workway_products USING btree (workday_id);
+CREATE INDEX index_workday_products_on_product_id ON public.workday_products USING btree (product_id);
 
 
 --
--- Name: index_workway_products_on_workday_id_and_product_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_workday_products_on_workday_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_workway_products_on_workday_id_and_product_id ON public.workway_products USING btree (workday_id, product_id);
+CREATE INDEX index_workday_products_on_workday_id ON public.workday_products USING btree (workday_id);
 
 
 --
--- Name: INDEX index_workway_products_on_workday_id_and_product_id; Type: COMMENT; Schema: public; Owner: -
+-- Name: index_workday_products_on_workday_id_and_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-COMMENT ON INDEX public.index_workway_products_on_workday_id_and_product_id IS 'No order can have two of the same product';
+CREATE UNIQUE INDEX index_workday_products_on_workday_id_and_product_id ON public.workday_products USING btree (workday_id, product_id);
+
+
+--
+-- Name: INDEX index_workday_products_on_workday_id_and_product_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON INDEX public.index_workday_products_on_workday_id_and_product_id IS 'No order can have two of the same product';
+
+
+--
+-- Name: workday_products fk_rails_3b52e13371; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.workday_products
+    ADD CONSTRAINT fk_rails_3b52e13371 FOREIGN KEY (workday_id) REFERENCES public.workdays(id);
 
 
 --
@@ -573,19 +581,11 @@ ALTER TABLE ONLY public.order_products
 
 
 --
--- Name: workway_products fk_rails_b191e89960; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: workday_products fk_rails_a9b91cbfa5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.workway_products
-    ADD CONSTRAINT fk_rails_b191e89960 FOREIGN KEY (workday_id) REFERENCES public.workdays(id);
-
-
---
--- Name: workway_products fk_rails_b8ab65c794; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.workway_products
-    ADD CONSTRAINT fk_rails_b8ab65c794 FOREIGN KEY (product_id) REFERENCES public.products(id);
+ALTER TABLE ONLY public.workday_products
+    ADD CONSTRAINT fk_rails_a9b91cbfa5 FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --

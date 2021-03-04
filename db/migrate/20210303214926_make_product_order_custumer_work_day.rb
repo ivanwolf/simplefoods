@@ -39,7 +39,7 @@ class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
       t.timestamps null: false
     end
     
-    create_table :workway_products, comment: "List of products availables for a workday" do |t|
+    create_table :workday_products, comment: "List of products availables for a workday" do |t|
       t.references :product, null: false, foreign_key: true
       t.references :workday, null: false, foreign_key: true
       t.integer :stock, null: false
@@ -47,7 +47,7 @@ class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
     end
 
     add_index :order_products, [:order_id, :product_id], unique: true, comment: "No order can have two of the same product"
-    add_index :workway_products, [:workday_id, :product_id], unique: true, comment: "No order can have two of the same product"
+    add_index :workday_products, [:workday_id, :product_id], unique: true, comment: "No order can have two of the same product"
     add_index :products, :name, unique: true, comment: "No two products should have the same name"
 
 
@@ -64,7 +64,7 @@ class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
     )
 
     add_check_constraint(
-      :workway_products,
+      :workday_products,
       "stock >= 0",
       name: "stock_cant_be_negative"
     )
