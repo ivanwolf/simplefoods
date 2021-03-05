@@ -13,7 +13,7 @@ gem 'puma', '~> 5.0'
 # Easy forms
 gem 'simple_form'
 
-#Authenticate users
+# Authenticate users
 gem 'devise'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
