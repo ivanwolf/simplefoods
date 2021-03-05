@@ -163,6 +163,7 @@ CREATE TABLE public.orders (
     paid boolean DEFAULT false,
     customer_id bigint NOT NULL,
     workday_id bigint NOT NULL,
+    delivery_comment text,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL
 );

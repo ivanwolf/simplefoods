@@ -30,6 +30,7 @@ class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
       t.boolean :paid, default: false
       t.references :customer, null: false, foreign_key: true
       t.references :workday, null: false, foreign_key: true
+      t.text :delivery_comment
       t.timestamps null: false
     end
 
