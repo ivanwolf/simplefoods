@@ -33,8 +33,6 @@ es:
       workday:
         work_date: "Fecha"
     errors:
-      messages:
-        presence: "Campo requerido"
       models:
         customer:
           attributes:
