@@ -14,4 +14,6 @@ class WorkdayProduct < ApplicationRecord
   belongs_to :product
 
   validates :product_id, uniqueness: { scope: :workday_id }
+
+  delegate :name, :price, :cover_photo, to: :product
 end

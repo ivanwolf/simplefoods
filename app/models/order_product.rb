@@ -13,5 +13,5 @@ class OrderProduct < ApplicationRecord
   belongs_to :order
   belongs_to :product
 
-  delegate :name, :price, to: :product
+  delegate :name, :price, :cover_photo, to: :product
 end

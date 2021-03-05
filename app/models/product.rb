@@ -9,6 +9,8 @@
 #  updated_at :timestamptz      not null
 #
 class Product < ApplicationRecord
+  has_one_attached :cover_photo
+
   validates :name, presence: true, allow_blank: false
   validates :price, numericality: { greater_than: 0 }
 

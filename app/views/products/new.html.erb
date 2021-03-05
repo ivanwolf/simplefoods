@@ -10,6 +10,7 @@
     <%= simple_form_for @product do |f| %>
       <%= f.input :name %>
       <%= f.input :price, type: :integer %>
+      <%= f.file_field :cover_photo %>
 
       <%= f.submit type: :submit, class: "px-4 py-2 rounded-md bg-yellow-500 text-white cursor-pointer" %>
     <% end %>
