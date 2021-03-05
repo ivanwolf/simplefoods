@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id         :bigint           not null, primary key
+#  name       :text             not null
+#  price      :integer          not null
+#  created_at :timestamptz      not null
+#  updated_at :timestamptz      not null
+#
 class Product < ApplicationRecord
   validates :name, presence: true, allow_blank: false
   validates :price, numericality: { greater_than: 0 }
