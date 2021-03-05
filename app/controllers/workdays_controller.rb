@@ -1,4 +1,6 @@
 class WorkdaysController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @workdays = Workday.all
   end

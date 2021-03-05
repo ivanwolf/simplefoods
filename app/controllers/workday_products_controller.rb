@@ -1,4 +1,6 @@
 class WorkdayProductsController < ApplicationController
+  before_action :authenticate_user!
+  
   def new
     @workday_product = WorkdayProduct.new
   end
