@@ -1,6 +1,8 @@
 es:
   helpers:
     submit:
+      workday_product:
+        create: "Agregar producto"
       workday:
         create: "Crear %{model}"
       product:
@@ -14,6 +16,8 @@ es:
         one: "Jornada"
         other: "Jornadas"
     attributes:
+      workday_product:
+        product: "Producto"
       order_product:
         quantity: "Cantidad"
       order:
