@@ -14,6 +14,7 @@ class OrderProduct < ApplicationRecord
   belongs_to :product
 
   validates :quantity, presence: true
+  validates :quantity, numericality: { greater_than_or_equal_to: 0 }
 
   delegate :name, :cover_photo, to: :product
 
