@@ -118,9 +118,9 @@ ALTER SEQUENCE public.active_storage_variant_records_id_seq OWNED BY public.acti
 
 CREATE TABLE public.addresses (
     id bigint NOT NULL,
-    street text NOT NULL,
-    number text NOT NULL,
-    department text NOT NULL,
+    street character varying NOT NULL,
+    number character varying NOT NULL,
+    department character varying NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL
 );
@@ -177,9 +177,9 @@ CREATE TABLE public.ar_internal_metadata (
 
 CREATE TABLE public.customers (
     id bigint NOT NULL,
-    name text NOT NULL,
-    last_name text NOT NULL,
-    phone_number text NOT NULL,
+    name character varying NOT NULL,
+    last_name character varying NOT NULL,
+    phone_number character varying NOT NULL,
     apartment integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL
@@ -262,7 +262,7 @@ CREATE TABLE public.orders (
     paid boolean DEFAULT false,
     customer_id bigint NOT NULL,
     workday_id bigint NOT NULL,
-    delivery_comment text,
+    delivery_comment character varying,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL
 );
@@ -300,7 +300,7 @@ ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
 
 CREATE TABLE public.products (
     id bigint NOT NULL,
-    name text NOT NULL,
+    name character varying NOT NULL,
     price integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,

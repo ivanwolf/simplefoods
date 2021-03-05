@@ -1,16 +1,16 @@
 class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
   def change
     create_table :addresses, comment: "List of customers addresses" do |t|
-      t.text :street, null: false
-      t.text :number, null: false
-      t.text :department, null: false, comment: "Dept, office or extra info"
+      t.string :street, null: false
+      t.string :number, null: false
+      t.string :department, null: false, comment: "Dept, office or extra info"
       t.timestamps null: false
     end
 
     create_table :customers, comment: "List of clients" do |t|
-      t.text :name, null: false
-      t.text :last_name, null: false
-      t.text :phone_number, null: false
+      t.string :name, null: false
+      t.string :last_name, null: false
+      t.string :phone_number, null: false
       t.integer :apartment, null: false
       t.timestamps null: false
     end
@@ -21,7 +21,7 @@ class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
     end
 
     create_table :products, comment: "list of products" do |t|
-      t.text :name, null: false
+      t.string :name, null: false
       t.integer :price, null: false
       t.timestamps null: false
     end
@@ -30,7 +30,7 @@ class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
       t.boolean :paid, default: false
       t.references :customer, null: false, foreign_key: true
       t.references :workday, null: false, foreign_key: true
-      t.text :delivery_comment
+      t.string :delivery_comment
       t.timestamps null: false
     end
 
