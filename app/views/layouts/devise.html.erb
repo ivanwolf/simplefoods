@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:page_title) ? content_for(:page_title) : "Comida deliciosa" %></title>
+    <meta name="description" content="<%= content_for(:meta_description)%>">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= favicon_link_tag 'logos/mano-morena.png', type: 'image/png' %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="h-full">
+
+    <div class="bg-gray-100 w-full h-full flex items-center justify-center p-32">
+      <div class="w-60 bg-white rounded-lg border p-4 mb-32">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>
