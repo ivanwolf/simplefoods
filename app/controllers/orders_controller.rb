@@ -27,6 +27,14 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    @order = Order.find(params[:id])
+
+    @order.destroy!
+
+    redirect_to workday_path(@order.workday)
+  end
+
   def order_params
     params.require(:order).permit(
       :workday_id, :delivery_comment,

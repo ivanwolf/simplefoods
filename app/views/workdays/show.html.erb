@@ -70,6 +70,7 @@
               <td class="text-right"><%= currency_formatter(order.total_price) %></td>
               <td class="text-right"><%= order.delivery_comment %></td>
               <td class="text-right"><%= order.paid? %></td>
+                <td class="text-right"><%= link_to "Eliminar", order, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar el pedido?" }%></td>
             </tr>
 
             <% end %>
