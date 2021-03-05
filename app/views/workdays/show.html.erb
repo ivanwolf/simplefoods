@@ -50,9 +50,9 @@
               <td class="text-right"><%= order.customer.apartment %></td>
               <td class="text-right"><%= order.customer.phone_number %></td>
               <td class="text-right">
-                <% order.order_products.each do |order_products| %>
+                <% order.order_products.each do |order_product| %>
                 <div>
-                  <%= order_products.quantity%> <%= order_products.name %>
+                  <%= order_product.quantity%> <%= order_product.name %>
                 </div>
                 <% end %>
               </td>

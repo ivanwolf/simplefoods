@@ -1,6 +1,10 @@
 class OrdersController < ApplicationController
   layout 'public'
   
+  def show
+    @order = Order.find(params[:id])
+  end
+  
   def new
     @order = Order.new
     @order.build_customer
