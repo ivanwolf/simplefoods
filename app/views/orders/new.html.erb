@@ -1,9 +1,9 @@
-<div class="p-16">
+<div class="md:px-16 py-16 px-8 flex flex-col items-center">
 
   <h1 class="text-3xl">¿Qué quieres pedir?</h1>
   <h2 class="text-xl text-gray-600 mb-4"><%= l(@workday.work_date, format: "%A %-d de %B").capitalize %></h2>
 
-  <div class="border bg-white rounded-lg p-4 w-96">
+  <div class="border bg-white rounded-lg p-4 md:w-96">
     <%= simple_form_for @order do |f| %>
 
     <%= f.hidden_field :workday_id, value: @workday.id %>
