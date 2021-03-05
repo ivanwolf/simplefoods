@@ -1,9 +1,9 @@
 <div class="pt-32 px-16">
   <h1 class="text-3xl mb-4">Productos</h1>
-  <div class="grid grid-gap-4 grid-flow-col-dense grid-cols-5">
+  <div class="grid gap-4 grid-cols-4">
     <% @products.each do |product| %>
     <div
-      class="border h-56 w-56 bg-white rounded-lg p-4 flex flex-col items-center justify-center hover:bg-gray-50 cursor-pointer">
+      class="border h-40 w-full bg-white rounded-lg p-4 flex flex-col items-center justify-center hover:bg-gray-50 cursor-pointer">
 
       <h2 class="text-xl"><%= product.name %></h2>
       <h2 class="text-xl"><%= currency_formatter(product.price) %></h2>
@@ -11,7 +11,7 @@
     <% end %>
     <%= link_to new_product_path do %>
     <div
-      class="border h-56 w-56 bg-white rounded-lg p-4 flex flex-col items-center justify-center hover:bg-gray-50 cursor-pointer">
+      class="border h-40 w-full bg-white rounded-lg p-4 flex flex-col items-center justify-center hover:bg-gray-50 cursor-pointer">
       <%= image_tag("icons/AddMajor.svg", class: "h-16 mb-2")%>
       <h2 class="text-xl">Agregar un producto</h2>
     </div>

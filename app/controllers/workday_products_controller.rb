@@ -12,6 +12,14 @@ class WorkdayProductsController < ApplicationController
     end
   end
 
+  def destroy
+    @workday_product = WorkdayProduct.find(params[:id])
+
+    @workday_product.destroy!
+
+    redirect_to workday_path(@workday_product.workday)
+  end
+
   private
 
   def workday_product_paramas
