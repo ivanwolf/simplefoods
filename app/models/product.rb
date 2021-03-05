@@ -3,4 +3,5 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than: 0 }
 
   has_many :workday_products, dependent: :destroy
+  has_many :order_products, dependent: :destroy
 end

@@ -1,0 +1,24 @@
+<div class="p-32">
+
+  <h1 class="text-3xl">¿Qué quieres pedir?</h1>
+  <h2 class="text-xl text-gray-600 mb-4"><%= l(@workday.work_date, format: "%A %-d de %B").capitalize %></h2>
+
+  <div class="border bg-white rounded-lg p-4 w-96">
+    <%= simple_form_for @order do |f| %>
+
+    <%= f.simple_fields_for :order_products, @order.order_products do |order_product_fields| %>
+    <div class="flex w-full items-center mb-4">
+      <div class="w-3/4">
+        <div><%= order_product_fields.object.product.name %></div>
+        <div class="text-gray-600"><%= currency_formatter(order_product_fields.object.product.price) %> c/u</div>
+      </div>
+      <div class="w-1/4">
+        <%= order_product_fields.input :quantity %>
+        <%= order_product_fields.hidden_field :product_id %>
+      </div>
+    </div>
+    <% end %>
+    <%= f.submit "Hacer el pedido", type: :submit, class: "px-4 py-2 rounded-md bg-yellow-500 text-white cursor-pointer" %>
+    <% end %>
+  </div>
+</div>

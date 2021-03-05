@@ -8,9 +8,12 @@
   <div class="bg-white border rounded-lg p-4 flex flex-col">
     <% @workdays.each_with_index do |workday, index|%>
       <div class="<%= class_names("flex justify-between", "pb-2 mb-2 border-b": index != @workdays.size - 1) %>">
-      <%= link_to workday do%>
-      <%= l(workday.work_date, format: "%A %d de %B") %>
-      <% end %>
+      <div>
+        <%= link_to workday do%>
+        <%= l(workday.work_date, format: "%A %d de %B") %>
+        <% end %>
+        <%= link_to "Hacer un pedido", new_order_path(workday_id: workday.id), class: "border border-gray-900 px-4 py-2 rounded-md "%>
+      </div>
       <%= link_to "Eliminar", workday, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar la jornada? Se perderán todos los datos" }%>
       </div>
     <% end %>
