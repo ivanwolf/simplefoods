@@ -7,6 +7,7 @@
 
       <h2 class="text-xl"><%= product.name %></h2>
       <h2 class="text-xl"><%= currency_formatter(product.price) %></h2>
+      <%= link_to "Eliminar", product, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar el producto?" }%>
     </div>
     <% end %>
     <%= link_to new_product_path do %>
