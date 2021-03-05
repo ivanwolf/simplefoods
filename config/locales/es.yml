@@ -21,15 +21,27 @@ es:
       customer:
         name: "Nombre"
         last_name: "Apellido"
-        phone_number: "Número de teléfono"
-        apartment: "Número de departamento"
+        phone_number: "Teléfono"
+        apartment: "Nº Depto"
       product:
         name: "Nombre"
         price: "Precio"
       workday:
         work_date: "Fecha"
     errors:
+      messages:
+        presence: "Campo requerido"
       models:
+        customer:
+          attributes:
+            name:
+              blank: "Campo requerido"
+            last_name:
+              blank: "Campo requerido"
+            apartment:
+              blank: "Campo requerido"
+            phone_number:
+              blank: "Campo requerido"
         product:
           attributes:
             name:

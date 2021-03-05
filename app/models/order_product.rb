@@ -13,5 +13,7 @@ class OrderProduct < ApplicationRecord
   belongs_to :order
   belongs_to :product
 
+  validates :quantity, presence: true
+
   delegate :name, :price, :cover_photo, to: :product
 end

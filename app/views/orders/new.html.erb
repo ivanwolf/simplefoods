@@ -7,12 +7,18 @@
     <%= simple_form_for @order do |f| %>
 
     <%= f.hidden_field :workday_id, value: @workday.id %>
+    <h2 class="text-lg">Datos de contacto</h2>
     <%= f.simple_fields_for :customer do |customer_fields| %>
+      <div class="grid grid-cols-2 gap-1">
       <%= customer_fields.input :name %>
       <%= customer_fields.input :last_name %>
-      <%= customer_fields.input :phone_number %>
+      </div>
+      <div class="grid grid-cols-2 gap-1">
+      <%= customer_fields.input :phone_number, hint: "Ej: 912341234" %>
       <%= customer_fields.input :apartment %>
+      </div>
     <% end %>
+    <h2 class="text-lg">Platos</h2>
     <%= f.simple_fields_for :order_products, @order.order_products do |order_product_fields| %>
     <div class="flex w-full items-center mb-4">
       <div class="w-3/4">

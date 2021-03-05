@@ -11,14 +11,15 @@ class OrdersController < ApplicationController
     @workday = Workday.includes(:products).find(params[:workday_id])
 
     @workday.products.each do |product|
-      @order.order_products << OrderProduct.new(product: product)
+      @order.order_products << OrderProduct.new(product: product, quantity: 0)
     end
   end
 
   def create
     @order = Order.new(order_params)
-    @order.order_products = @order.order_products.select { |op| op.quantity.positive? }
-    if @order.save
+    if @order.valid?
+      @order.order_products = @order.order_products.select { |op| op.quantity.positive? }
+      @order.save
       redirect_to @order
     else
       @workday = @order.workday
