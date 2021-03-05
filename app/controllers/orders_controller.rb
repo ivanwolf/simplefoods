@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   
   def new
     @order = Order.new
+    @order.build_customer
     @workday = Workday.includes(:products).find(params[:workday_id])
 
     @workday.products.each do |product|
