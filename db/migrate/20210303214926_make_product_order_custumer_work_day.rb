@@ -10,8 +10,8 @@ class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
     create_table :customers, comment: "List of clients" do |t|
       t.text :name, null: false
       t.text :last_name, null: false
-      t.text :address, null: false
-      t.references :address, null: false, foreign_key: true, comment: "Address of the custuemer"
+      t.text :phone_number, null: false
+      t.integer :apartment, null: false
       t.timestamps null: false
     end
 
@@ -27,6 +27,7 @@ class MakeProductOrderCustumerWorkDay < ActiveRecord::Migration[6.1]
     end
 
     create_table :orders, comment: "List of orders" do |t|
+      t.boolean :paid, default: false
       t.references :customer, null: false, foreign_key: true
       t.references :workday, null: false, foreign_key: true
       t.timestamps null: false

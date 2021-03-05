@@ -3,6 +3,7 @@
 # Table name: orders
 #
 #  id          :bigint           not null, primary key
+#  paid        :boolean          default(FALSE)
 #  customer_id :bigint           not null
 #  workday_id  :bigint           not null
 #  created_at  :timestamptz      not null

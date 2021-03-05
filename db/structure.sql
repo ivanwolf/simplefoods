@@ -80,8 +80,8 @@ CREATE TABLE public.customers (
     id bigint NOT NULL,
     name text NOT NULL,
     last_name text NOT NULL,
-    address text NOT NULL,
-    address_id bigint NOT NULL,
+    phone_number text NOT NULL,
+    apartment integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL
 );
@@ -92,13 +92,6 @@ CREATE TABLE public.customers (
 --
 
 COMMENT ON TABLE public.customers IS 'List of clients';
-
-
---
--- Name: COLUMN customers.address_id; Type: COMMENT; Schema: public; Owner: -
---
-
-COMMENT ON COLUMN public.customers.address_id IS 'Address of the custuemer';
 
 
 --
@@ -167,6 +160,7 @@ ALTER SEQUENCE public.order_products_id_seq OWNED BY public.order_products.id;
 
 CREATE TABLE public.orders (
     id bigint NOT NULL,
+    paid boolean DEFAULT false,
     customer_id bigint NOT NULL,
     workday_id bigint NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
@@ -450,13 +444,6 @@ ALTER TABLE ONLY public.workdays
 
 
 --
--- Name: index_customers_on_address_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_customers_on_address_id ON public.customers USING btree (address_id);
-
-
---
 -- Name: index_order_products_on_order_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -554,14 +541,6 @@ ALTER TABLE ONLY public.workday_products
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT fk_rails_3dad120da9 FOREIGN KEY (customer_id) REFERENCES public.customers(id);
-
-
---
--- Name: customers fk_rails_3f9404ba26; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.customers
-    ADD CONSTRAINT fk_rails_3f9404ba26 FOREIGN KEY (address_id) REFERENCES public.addresses(id);
 
 
 --
