@@ -27,6 +27,9 @@ gem 'jbuilder', '~> 2.7'
 # Needed because ruby 3.0
 gem 'rexml'
 
+# AWS S3
+gem "aws-sdk-s3", require: false
+
 # Image processing
 gem 'image_processing'
 
