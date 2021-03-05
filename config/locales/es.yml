@@ -14,6 +14,15 @@ es:
         one: "Jornada"
         other: "Jornadas"
     attributes:
+      order_product:
+        quantity: "Cantidad"
+      order:
+        delivery_comment: "Comentarios para la entrega"
+      customer:
+        name: "Nombre"
+        last_name: "Apellido"
+        phone_number: "Número de teléfono"
+        apartment: "Número de departamento"
       product:
         name: "Nombre"
         price: "Precio"

@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     if @order.save
-      redirect @order
+      redirect_to @order
     else
       @workday = @order.workday
       render :new
@@ -22,7 +22,9 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(
-      :workday_id, order_products_attributes: [:product_id, :quantity]
+      :workday_id, :delivery_comment,
+      order_products_attributes: [:product_id, :quantity],
+      customer_attributes: [:name, :last_name, :phone_number, :apartment]
     )
   end
 end
