@@ -2,14 +2,12 @@
   <div class="flex items-center mb-4">
     <%= link_to workdays_path, class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
     <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
-
     <%end %>
     <h1 class="text-3xl">Jornada: <%= @workday.work_date %></h1>
   </div>
-  <div class="grid gap-4 grid-cols-4">
+  <div class="grid gap-4 grid-cols-4 mb-4">
     <% @workday.workday_products.each do |wd_product| %>
-    <div
-      class="border h-40 w-full bg-white rounded-lg p-4 flex flex-col items-center justify-center">
+    <div class="border h-40 w-full bg-white rounded-lg p-4 flex flex-col items-center justify-center">
 
       <h2 class="text-xl"><%= wd_product.product.name %></h2>
       <h2 class="text-xl">Stock: <%= wd_product.stock %></h2>
@@ -18,11 +16,59 @@
     <% end %>
     <%= link_to new_workday_product_path(workday_id: @workday.id) do %>
 
-    <div
-      class="border h-40 w-full bg-white rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer">
+    <div class="border h-40 w-full bg-white rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer">
       <%= image_tag("icons/AddMajor.svg", class: "h-16 mb-2")%>
       <h2 class="text-xl">Agregar stock</h2>
     </div>
     <% end %>
+  </div>
+  <h2 class="text-2xl">Pedidos</h2>
+  <div class="bg-white border rounded-lg p-4 ">
+    <div class="flex flex-col mx-auto">
+      <div class="overflow-x-scroll">
+        <table class="table-fixed min-w-full">
+          <thead>
+            <tr class="border-b my-2">
+              <th class="text-left">Nombre</th>
+              <th class="text-right">Depto</th>
+              <th class="text-right">Teléfono</th>
+              <th class="text-right min-w-60">Pedido</th>
+              <th class="text-right">Subtotal</th>
+              <th class="text-right">Total</th>
+              <th class="text-right">Comentario</th>
+              <th class="text-right">Pagado</th>
+              <th class="text-right">Acciones </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @workday.orders.each do |order| %>
+            <tr class="border-b my-2">
+              <td class="text-left"><%= order.customer.full_name %></td>
+              <td class="text-right"><%= order.customer.apartment %></td>
+              <td class="text-right"><%= order.customer.phone_number %></td>
+              <td class="text-right">
+                <% order.order_products.each do |order_products| %>
+                <div>
+                  <%= order_products.quantity%> <%= order_products.name %>
+                </div>
+                <% end %>
+              </td>
+              <td class="text-right">
+                <% order.order_products.each do |order_product| %>
+                <div>
+                  <%= currency_formatter(order_product.price)%>
+                </div>
+                <% end %>
+              </td>
+              <td class="text-right"><%= currency_formatter(order.total_price) %></td>
+              <td class="text-right"><%= order.delivery_comment %></td>
+              <td class="text-right"><%= order.paid? %></td>
+            </tr>
+
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

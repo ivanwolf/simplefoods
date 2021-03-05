@@ -14,7 +14,12 @@ class Order < ApplicationRecord
   belongs_to :workday
 
   has_many :order_products, dependent: :destroy
+  has_many :products, through: :order_products
 
   accepts_nested_attributes_for :order_products
   accepts_nested_attributes_for :customer
+
+  def total_price
+    order_products.map(&:price).reduce(:+)
+  end
 end
