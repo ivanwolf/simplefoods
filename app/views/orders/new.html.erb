@@ -1,3 +1,9 @@
+<% content_for :page_title do %>
+Mano morena - Comida casera
+<% end %>
+<% content_for :meta_description do %>
+Haz tu pedido para el <%= l(@workday.work_date, format: "%A %-d de %B") %>. Llevamos el plato a la puerta de tu casa.
+<% end %>
 <div class="md:px-16 py-16 px-8 flex flex-col items-center">
 
   <h1 class="text-2xl text-center md:text-3xl">Vecino, ¿qué quieres pedir?</h1>
