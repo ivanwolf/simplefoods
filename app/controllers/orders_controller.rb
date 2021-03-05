@@ -9,4 +9,20 @@ class OrdersController < ApplicationController
       @order.order_products << OrderProduct.new(product: product)
     end
   end
+
+  def create
+    @order = Order.new(order_params)
+    if @order.save
+      redirect @order
+    else
+      @workday = @order.workday
+      render :new
+    end
+  end
+
+  def order_params
+    params.require(:order).permit(
+      :workday_id, order_products_attributes: [:product_id, :quantity]
+    )
+  end
 end

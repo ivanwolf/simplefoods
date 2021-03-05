@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   resources :products, only: %i[index new create destroy]
   resources :workdays, only: %i[index new create show destroy]
   resources :workday_products, only: %i[new create destroy]
-  resources :orders, only: %i[new create]
+  resources :orders, only: %i[new create show]
 end

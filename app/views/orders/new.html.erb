@@ -6,6 +6,7 @@
   <div class="border bg-white rounded-lg p-4 w-96">
     <%= simple_form_for @order do |f| %>
 
+    <%= f.hidden_field :workday_id, value: @workday.id %>
     <%= f.simple_fields_for :order_products, @order.order_products do |order_product_fields| %>
     <div class="flex w-full items-center mb-4">
       <div class="w-3/4">
