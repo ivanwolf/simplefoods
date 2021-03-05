@@ -15,5 +15,9 @@ class OrderProduct < ApplicationRecord
 
   validates :quantity, presence: true
 
-  delegate :name, :price, :cover_photo, to: :product
+  delegate :name, :cover_photo, to: :product
+
+  def price
+    product.price * quantity
+  end
 end
