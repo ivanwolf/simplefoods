@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for?(:page_title) ? content_for(:page_title) : "Comida deliciosa" %></title>
-    <meta name="description" content="<%= content_for(:meta_description)%>">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= favicon_link_tag 'logos/mano-morena.png', type: 'image/png' %>
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= content_for?(:page_title) ? content_for(:page_title) : "Comida deliciosa" %></title>
+  <meta name="description" content="<%= content_for(:meta_description)%>">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= favicon_link_tag 'logos/mano-morena.png', type: 'image/png' %>
 
-    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-  <body class="flex h-full">
-    <nav class="w-64 bg-yellow-300 shadow-lg pt-32 flex flex-col">
-        <div class="flex-1 flex flex-col w-full">
-          <%= link_to workdays_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-500 rounded-lg #{class_names("bg-yellow-500": request.path_info.include?("/workday"))}" do %>
-            <%= Workday.model_name.human(count: 2) %>
-          <% end %>
-          <%= link_to products_path, class: "mx-4 px-2 py-2 hover:bg-yellow-500 rounded-lg #{class_names("bg-yellow-500": request.path_info.include?("/products"))}" do %>
-            <%= Product.model_name.human(count: 2) %>
-          <% end %>
-        </div>
+  <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-
-        <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "mx-4 px-2 py-2 text-white" %>
-    </nav>
-    <div class="bg-gray-100 w-full">
-    <%= yield %>
+<body class="flex h-full">
+  <nav class="w-64 bg-yellow-300 shadow-lg pt-32 flex flex-col">
+    <div class="flex-1 flex flex-col w-full">
+      <%= link_to workdays_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-400 rounded-lg #{class_names("bg-yellow-400": request.path_info.include?("/workday"))}" do %>
+      <%= Workday.model_name.human(count: 2) %>
+      <% end %>
+      <%= link_to products_path, class: "mx-4 px-2 py-2 hover:bg-yellow-400 rounded-lg #{class_names("bg-yellow-400": request.path_info.include?("/products"))}" do %>
+      <%= Product.model_name.human(count: 2) %>
+      <% end %>
     </div>
-  </body>
+
+    <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "mx-4 px-2 py-2 text-white" %>
+  </nav>
+  <div class="bg-gray-100 w-full relative">
+    <section class="absolute w-full left-0 right-0">
+      <% flash.each do |message_type, message| %>
+        <div id=<%= message_type %> class="mt-16 p-2 mx-16 rounded-lg border <%= message_type == "notice" ? "bg-green-100 border-green-500" : "bg-red-100 border-red-500"%>"><%= message %></div>
+      <% end %>
+    </section>
+    <%= yield %>
+  </div>
+</body>
+
 </html>

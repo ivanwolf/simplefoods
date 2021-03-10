@@ -21,9 +21,12 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
 
-    @product.destroy!
+    if @product.destroy 
+      redirect_to products_path, flash: { notice: I18n.t("activerecord.messages.models.product.actions.destroy") }
+    else
+      redirect_to products_path, flash: { error: I18n.t("activerecord.errors.models.product.actions.destroy") }
+    end
 
-    redirect_to products_path
   end
 
   private

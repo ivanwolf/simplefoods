@@ -32,6 +32,11 @@ es:
         price: "Precio"
       workday:
         work_date: "Fecha"
+    messages:
+      models:
+        product:
+          actions:
+            destroy: "Producto eliminado con correctamente"
     errors:
       models:
         customer:
@@ -45,6 +50,8 @@ es:
             phone_number:
               blank: "Campo requerido"
         product:
+          actions:
+            destroy: "No se puede borrar el producto. Hay órdenes o stock asociados."
           attributes:
             name:
               blank: "Tiene que estar presente"
