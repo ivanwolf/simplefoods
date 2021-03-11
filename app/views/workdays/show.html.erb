@@ -30,33 +30,54 @@
     <h2 class="text-2xl">Pedidos</h2>
     <%= link_to "Hacer un pedido", new_order_path(workday_id: @workday.id), class: "border-2 border-green-700 bg-green-100 text-green-700 px-4 py-2 rounded-md "%>
   </div>
-  <div class="bg-white border rounded-lg p-4">
+  <div class="bg-white border rounded-lg">
     <div class="flex flex-col mx-auto">
       <div class="overflow-x-scroll">
         <table class="table-fixed min-w-full">
           <thead>
-            <tr class="border-b my-2">
-              <th class="text-left">Nombre</th>
-              <th class="text-right">Depto</th>
-              <th class="text-right">Teléfono</th>
-              <th class="text-right">Pedido</th>
+            <tr class="border-b h-14">
+              <th class="text-left pl-4">ID</th>
+              <th class="text-left">Cliente</th>
+              <th class="text-right">Productos</th>
               <th class="text-right">Subtotal</th>
               <th class="text-right">Total</th>
-              <th class="text-right">Comentario</th>
               <th class="text-right">Pagado</th>
-              <th class="text-right">Acciones </th>
+              <th class="text-right pr-4">Acciones </th>
             </tr>
           </thead>
           <tbody>
+            <tr class="border-b h-14 bg-yellow-50">
+              <td class="text-left pl-4"></td>
+              <td class="text-left font-bold">Totales</td>
+              <td class="text-right">
+                <% @workday.products.each do |product| %>
+                <div>
+                  <%= OrderCalculator.units_taken(@workday, product)  %> x <%= product.name %>
+                </div>
+                <% end %>
+              </td>
+              <td class="text-right">
+                <% @workday.products.each do |product| %>
+                <div>
+                  <%= currency_formatter(OrderCalculator.revenue_at(@workday, product))  %>
+                </div>
+                <% end %>
+              </td>
+              <td class="text-right">
+                <%= currency_formatter(OrderCalculator.revenue_at(@workday))  %>
+              </td>
+              <td></td>
+              <td></td>
+
+            </tr>
             <% @workday.orders.each do |order| %>
-            <tr class="border-b my-2">
-              <td class="text-left"><%= order.customer.full_name %></td>
-              <td class="text-right"><%= order.customer.apartment %></td>
-              <td class="text-right"><%= order.customer.phone_number %></td>
+            <tr class="border-b h-14">
+              <td class="text-left pl-4"># <%= order.id %></td>
+              <td class="text-left"><%= order.customer.full_name %> - D. <%= order.customer.apartment %></td>
               <td class="text-right">
                 <% order.order_products.each do |order_product| %>
                 <div>
-                  <%= order_product.quantity%> <%= order_product.name %>
+                  <%= order_product.quantity%> x <%= order_product.name %>
                 </div>
                 <% end %>
               </td>
@@ -68,9 +89,10 @@
                 <% end %>
               </td>
               <td class="text-right"><%= currency_formatter(order.total_price) %></td>
-              <td class="text-right"><%= order.delivery_comment %></td>
               <td class="text-right"><%= order.paid? %></td>
-                <td class="text-right"><%= link_to "Eliminar", order, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar el pedido?" }%></td>
+              <td class="text-right pr-4">
+                <%= link_to "Eliminar", order, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar el pedido?" }%>
+              </td>
             </tr>
 
             <% end %>
