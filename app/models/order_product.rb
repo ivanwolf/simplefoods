@@ -21,4 +21,8 @@ class OrderProduct < ApplicationRecord
   def price
     product.price * quantity
   end
+
+  def deliver_time
+    WorkdayProduct.find_by(product_id: product_id, workday_id: order.workday_id ).deliver_time
+  end
 end

@@ -20,9 +20,10 @@ Haz tu pedido para el <%= l(@workday.work_date, format: "%A %-d de %B") %>. Llev
       <%= customer_fields.input :last_name %>
     </div>
     <div class="grid grid-cols-2 gap-1">
-      <%= customer_fields.input :phone_number, hint: "Ej: 912341234" %>
-      <%= customer_fields.input :address, hint: "Pocuro 2623, Depto 123" %>
+      <%= customer_fields.input :address, hint: "Pocuro 1554" %>
+      <%= customer_fields.input :apartment, hint: "701" %>
     </div>
+      <%= customer_fields.input :phone_number, hint: "Ej: 912341234" %>
     <% end %>
     <h2 class="text-lg">Platos</h2>
     <%= f.simple_fields_for :order_products, @order.order_products do |order_product_fields| %>

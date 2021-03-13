@@ -1,14 +1,18 @@
 <div class="px-4 py-8 md:p-16 flex flex-col items-center">
   <h1 class="text-3xl">¡Tu pedido ha sido registrado!</h1>
   <h2 class="text-xl text-gray-600 mb-8">Llegaremos a tu departamento el
-    <%= l(@order.workday.work_date, format: "%A %-d de %B") %> entre las 13:00 y 13:30</h2>
+    <%= l(@order.workday.work_date, format: "%A %-d de %B") %></h2>
   <div class="grid gap-4 grid-cols-1 md:grid-cols-5 w-full">
     <div class="md:col-span-3 border bg-white rounded-lg p-4 md:mr-8">
       <h3 class="text-2xl mb-2">Resumen del pedido</h3>
 
       <% @order.order_products.each do |order_product| %>
       <div class="flex justify-between">
-        <div> <span class="font-bold"><%= order_product.quantity%></span> <%= order_product.name %></div>
+        <div>
+          <span class="font-bold"><%= order_product.quantity%></span> <%= order_product.name %>
+          <br />
+          <span>Entrega aproximada <%= l(order_product.deliver_time, format: "%H:%M") %></span>
+        </div>
         <div><%= currency_formatter(order_product.price)%></div>
       </div>
       <% end %>

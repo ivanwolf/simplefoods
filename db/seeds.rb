@@ -7,6 +7,22 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-user = User.create(email: "admin@sfoods.cl")
+user = User.create(email: "admin@sfood.cl")
 user.password = "123456"
 user.save!
+
+workday = Workday.new(work_date: Date.today)
+workdays = [
+  {}
+]
+
+Date.yesterday..Date.tomorrow do |work_date|
+end
+
+products = [
+  { name: "Porotos", price: 4000 },
+  { name: "Ceviche", price: 5000 },
+  { name: "Humitas", price: 1500 },
+  { name: "Empanadas", price: 1700}
+]
+

@@ -26,7 +26,8 @@ es:
         name: "Nombre"
         last_name: "Apellido"
         phone_number: "Teléfono"
-        apartment: "Nº Depto"
+        address: "Dirección"
+        apartment: "Depto / oficina"
       product:
         name: "Nombre"
         price: "Precio"
