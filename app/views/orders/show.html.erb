@@ -11,7 +11,7 @@
         <div>
           <span class="font-bold"><%= order_product.quantity%></span> <%= order_product.name %>
           <br />
-          <span>Hora de entrega  ~<%= l(order_product.deliver_time, format: "%H:%M") %></span>
+          <span>Hora de entrega  ~<%= l(order_product.delivery_time, format: "%H:%M") %></span>
         </div>
         <div><%= currency_formatter(order_product.price)%></div>
       </div>

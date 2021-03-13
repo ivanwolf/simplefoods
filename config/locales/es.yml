@@ -18,6 +18,7 @@ es:
     attributes:
       workday_product:
         product: "Producto"
+        delivery_time: "Hora de entrega"
       order_product:
         quantity: "Cantidad"
       order:

@@ -5,7 +5,7 @@ class WorkdayProductsController < ApplicationController
     @workday = Workday.find(params[:workday_id])
     @workday_product = WorkdayProduct.new.tap do |wd_product|
       wd_product.workday = @workday
-      wd_product.deliver_time = Date.today.midday + 1.hour
+      wd_product.delivery_time = Date.today.midday + 1.hour
     end
   end
 
@@ -47,7 +47,7 @@ class WorkdayProductsController < ApplicationController
 
   def workday_product_paramas
     params.require(:workday_product).permit(
-      %i[workday_id product_id stock deliver_time]
+      %i[workday_id product_id stock delivery_time]
     )
   end
 end
