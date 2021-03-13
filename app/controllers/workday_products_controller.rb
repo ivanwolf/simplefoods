@@ -5,6 +5,7 @@ class WorkdayProductsController < ApplicationController
     @workday = Workday.find(params[:workday_id])
     @workday_product = WorkdayProduct.new.tap do |wd_product|
       wd_product.workday = @workday
+      wd_product.deliver_time = Date.today.midday + 1.hour
     end
   end
 
