@@ -12,4 +12,8 @@ class Workday < ApplicationRecord
   has_many :products, through: :workday_products
 
   has_many :orders
+
+  def title
+    I18n.l(work_date, format: "%A %d de %B")
+  end
 end
