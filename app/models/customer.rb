@@ -11,7 +11,7 @@
 #  updated_at   :timestamptz      not null
 #
 class Customer < ApplicationRecord
-  validates :name, :last_name, :phone_number, :apartment, presence: true
+  validates :name, :last_name, :phone_number, :apartment, :address, presence: true
 
   def full_name
     "#{name} #{last_name}"

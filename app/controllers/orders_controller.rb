@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
     params.require(:order).permit(
       :workday_id, :delivery_comment,
       order_products_attributes: [:product_id, :quantity],
-      customer_attributes: [:name, :last_name, :phone_number, :apartment]
+      customer_attributes: [:name, :last_name, :phone_number, :address]
     )
   end
 end

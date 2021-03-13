@@ -34,6 +34,9 @@ es:
         work_date: "Fecha"
     messages:
       models:
+        workday_product:
+          actions:
+            update: "Producto modificado correctamente"
         product:
           actions:
             destroy: "Producto eliminado con correctamente"
@@ -46,6 +49,8 @@ es:
             last_name:
               blank: "Campo requerido"
             apartment:
+              blank: "Campo requerido"
+            address:
               blank: "Campo requerido"
             phone_number:
               blank: "Campo requerido"
