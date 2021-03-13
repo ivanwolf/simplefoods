@@ -182,7 +182,8 @@ CREATE TABLE public.customers (
     phone_number character varying NOT NULL,
     apartment integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
-    updated_at timestamp(6) with time zone NOT NULL
+    updated_at timestamp(6) with time zone NOT NULL,
+    address character varying NOT NULL
 );
 
 
@@ -389,6 +390,7 @@ CREATE TABLE public.workday_products (
     stock integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
+    deliver_time character varying,
     CONSTRAINT stock_cant_be_negative CHECK ((stock >= 0))
 );
 
@@ -837,6 +839,7 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20210303214926'),
 ('20210305132654'),
-('20210305200737');
+('20210305200737'),
+('20210313175321');
 
 
