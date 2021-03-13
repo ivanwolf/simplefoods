@@ -390,7 +390,7 @@ CREATE TABLE public.workday_products (
     stock integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
-    deliver_time time without time zone,
+    delivery_time time without time zone,
     CONSTRAINT stock_cant_be_negative CHECK ((stock >= 0))
 );
 
@@ -840,6 +840,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210303214926'),
 ('20210305132654'),
 ('20210305200737'),
-('20210313175321');
+('20210313175321'),
+('20210313225833');
 
 
