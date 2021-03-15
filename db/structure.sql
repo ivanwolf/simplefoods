@@ -245,7 +245,8 @@ CREATE TABLE public.customers (
     apartment integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
-    address character varying NOT NULL
+    address character varying NOT NULL,
+    store_id bigint NOT NULL
 );
 
 
@@ -286,6 +287,7 @@ CREATE TABLE public.order_products (
     quantity integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
+    store_id bigint NOT NULL,
     CONSTRAINT queantity_must_be_positive CHECK ((quantity > 0))
 );
 
@@ -327,7 +329,8 @@ CREATE TABLE public.orders (
     workday_id bigint NOT NULL,
     delivery_comment character varying,
     created_at timestamp(6) with time zone NOT NULL,
-    updated_at timestamp(6) with time zone NOT NULL
+    updated_at timestamp(6) with time zone NOT NULL,
+    store_id bigint NOT NULL
 );
 
 
@@ -367,6 +370,7 @@ CREATE TABLE public.products (
     price integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
+    store_id bigint NOT NULL,
     CONSTRAINT price_must_be_positive CHECK ((price > 0))
 );
 
@@ -522,6 +526,7 @@ CREATE TABLE public.workday_products (
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
     delivery_time time without time zone,
+    store_id bigint NOT NULL,
     CONSTRAINT stock_cant_be_negative CHECK ((stock >= 0))
 );
 
@@ -560,7 +565,8 @@ CREATE TABLE public.workdays (
     id bigint NOT NULL,
     work_date date NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
-    updated_at timestamp(6) with time zone NOT NULL
+    updated_at timestamp(6) with time zone NOT NULL,
+    store_id bigint NOT NULL
 );
 
 
@@ -860,6 +866,13 @@ CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.ac
 
 
 --
+-- Name: index_customers_on_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_customers_on_store_id ON public.customers USING btree (store_id);
+
+
+--
 -- Name: index_order_products_on_order_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -888,10 +901,24 @@ CREATE INDEX index_order_products_on_product_id ON public.order_products USING b
 
 
 --
+-- Name: index_order_products_on_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_order_products_on_store_id ON public.order_products USING btree (store_id);
+
+
+--
 -- Name: index_orders_on_customer_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_orders_on_customer_id ON public.orders USING btree (customer_id);
+
+
+--
+-- Name: index_orders_on_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_on_store_id ON public.orders USING btree (store_id);
 
 
 --
@@ -913,6 +940,13 @@ CREATE UNIQUE INDEX index_products_on_name ON public.products USING btree (name)
 --
 
 COMMENT ON INDEX public.index_products_on_name IS 'No two products should have the same name';
+
+
+--
+-- Name: index_products_on_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_store_id ON public.products USING btree (store_id);
 
 
 --
@@ -958,6 +992,13 @@ CREATE INDEX index_workday_products_on_product_id ON public.workday_products USI
 
 
 --
+-- Name: index_workday_products_on_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_workday_products_on_store_id ON public.workday_products USING btree (store_id);
+
+
+--
 -- Name: index_workday_products_on_workday_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -979,6 +1020,21 @@ COMMENT ON INDEX public.index_workday_products_on_workday_id_and_product_id IS '
 
 
 --
+-- Name: index_workdays_on_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_workdays_on_store_id ON public.workdays USING btree (store_id);
+
+
+--
+-- Name: customers fk_rails_088c28e6f7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.customers
+    ADD CONSTRAINT fk_rails_088c28e6f7 FOREIGN KEY (store_id) REFERENCES public.stores(id);
+
+
+--
 -- Name: transfer_data fk_rails_2f1e4a90a1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -995,6 +1051,14 @@ ALTER TABLE ONLY public.workday_products
 
 
 --
+-- Name: order_products fk_rails_3c01b2d6aa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT fk_rails_3c01b2d6aa FOREIGN KEY (store_id) REFERENCES public.stores(id);
+
+
+--
 -- Name: orders fk_rails_3dad120da9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1008,6 +1072,14 @@ ALTER TABLE ONLY public.orders
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT fk_rails_4aba44d729 FOREIGN KEY (workday_id) REFERENCES public.workdays(id);
+
+
+--
+-- Name: products fk_rails_5cf8ff66a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_5cf8ff66a6 FOREIGN KEY (store_id) REFERENCES public.stores(id);
 
 
 --
@@ -1059,11 +1131,35 @@ ALTER TABLE ONLY public.transfer_data
 
 
 --
+-- Name: workday_products fk_rails_f0b0bdc7b7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.workday_products
+    ADD CONSTRAINT fk_rails_f0b0bdc7b7 FOREIGN KEY (store_id) REFERENCES public.stores(id);
+
+
+--
+-- Name: orders fk_rails_f0be2fda72; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_rails_f0be2fda72 FOREIGN KEY (store_id) REFERENCES public.stores(id);
+
+
+--
 -- Name: order_products fk_rails_f40b8ccee4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.order_products
     ADD CONSTRAINT fk_rails_f40b8ccee4 FOREIGN KEY (order_id) REFERENCES public.orders(id);
+
+
+--
+-- Name: workdays fk_rails_f5c36c461e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.workdays
+    ADD CONSTRAINT fk_rails_f5c36c461e FOREIGN KEY (store_id) REFERENCES public.stores(id);
 
 
 --
