@@ -11,18 +11,27 @@ user = User.create(email: "admin@sfood.cl")
 user.password = "123456"
 user.save!
 
-workday = Workday.new(work_date: Date.today)
 workdays = [
-  {}
-]
+  { work_date: Date.today.yesterday },
+  { work_date: Date.today },
+  { work_date: Date.today.tomorrow }
+].map { |value| value.merge(created_at: Time.zone.now, updated_at: Time.zone.now)}
 
-Date.yesterday..Date.tomorrow do |work_date|
-end
+Workday.insert_all(workdays)
 
 products = [
   { name: "Porotos", price: 4000 },
   { name: "Ceviche", price: 5000 },
   { name: "Humitas", price: 1500 },
   { name: "Empanadas", price: 1700}
-]
+].map { |value| value.merge(created_at: Time.zone.now, updated_at: Time.zone.now)}
 
+Product.insert_all(products)
+
+Product.all.each do |product|
+  filename = "#{product.name.downcase}.jpg"
+  product.cover_photo.attach(
+    io: File.open(Rails.root.join('test/fixtures/files', filename)),
+    filename: filename
+  )
+end
