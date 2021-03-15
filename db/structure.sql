@@ -491,7 +491,8 @@ CREATE TABLE public.users (
     reset_password_sent_at timestamp with time zone,
     remember_created_at timestamp with time zone,
     created_at timestamp(6) with time zone NOT NULL,
-    updated_at timestamp(6) with time zone NOT NULL
+    updated_at timestamp(6) with time zone NOT NULL,
+    store_id bigint NOT NULL
 );
 
 
@@ -985,6 +986,13 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 
 
 --
+-- Name: index_users_on_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_store_id ON public.users USING btree (store_id);
+
+
+--
 -- Name: index_workday_products_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1120,6 +1128,14 @@ ALTER TABLE ONLY public.transfer_data
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: users fk_rails_c6f326481e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT fk_rails_c6f326481e FOREIGN KEY (store_id) REFERENCES public.stores(id);
 
 
 --
