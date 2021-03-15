@@ -29,6 +29,9 @@ gem 'turbolinks', '~> 5'
 # Needed because ruby 3.0
 gem 'rexml'
 
+# Tenant support
+gem 'acts_as_tenant'
+
 # AWS S3
 gem "aws-sdk-s3", require: false
 
