@@ -7,66 +7,84 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+
+
 user = User.create(email: "admin@sfood.cl")
 user.password = "123456"
 user.save!
 
-timestamps = { created_at: Time.zone.now, updated_at: Time.zone.now }
+manomorena = Store.create(name: "Mano Morena", slug: "manomorena")
+patagonia_sabores = Store.create(name: "Patagonia Sabores", slug: "patagoniasabores")
 
-workdays = [
-  { work_date: Date.today.yesterday },
-  { work_date: Date.today },
-  { work_date: Date.today.tomorrow }
-].map { |value| value.merge(timestamps)}
+user = User.create(email: "admin@manomorena.cl", store_id: manomorena.id)
+user.password = "123456"
+user.save!
 
-Workday.insert_all(workdays)
+user = User.create(email: "admin@patagonia.cl", store_id: patagonia_sabores.id)
+user.password = "123456"
+user.save!
 
-products = [
-  { name: "Porotos", price: 4000 },
-  { name: "Ceviche", price: 5000 },
-  { name: "Humitas", price: 1500 },
-  { name: "Empanadas", price: 1700}
-].map { |value| value.merge(timestamps)}
 
-Product.insert_all(products)
+ActsAsTenant.with_tenant(manomorena) do
 
-Product.all.each do |product|
-  filename = "#{product.name.downcase}.jpg"
-  product.cover_photo.attach(
-    io: File.open(Rails.root.join('test/fixtures/files', filename)),
-    filename: filename
-  )
-end
 
-customers = [
-  { name: "Iván", last_name: "Wolf Olivares", phone_number: "948454110", address: "Porcuro 2623", apartment: 701 },
-  { name: "Natalia", last_name: "Valenzuela Lepio", phone_number: "941640026", address: "Simón Bolivar 5020", apartment: 24 },
-  { name: "Oscar", last_name: "Carrasco", phone_number: "962058917", address: "Carlos Antúnez 650", apartment: 1212 },
-  { name: "Valentina", last_name: "Wolf Olivares", phone_number: "978873819", address: "Vivar 124", apartment: 121 }
-].map { |value| value.merge(timestamps)}
+  timestamps = { created_at: Time.zone.now, updated_at: Time.zone.now, store_id: manomorena.id }
 
-Customer.insert_all(customers)
+  workdays = [
+    { work_date: Date.today.yesterday },
+    { work_date: Date.today },
+    { work_date: Date.today.tomorrow }
+  ].map { |value| value.merge(timestamps)}
 
-Workday.all.each do |workday|
+  Workday.insert_all(workdays)
 
-  stocks = [10, 20, 30]
-  delivery_time = Date.today.midday + 1.hour
+  products = [
+    { name: "Porotos", price: 4000 },
+    { name: "Ceviche", price: 5000 },
+    { name: "Humitas", price: 1500 },
+    { name: "Empanadas", price: 1700}
+  ].map { |value| value.merge(timestamps)}
 
-  products = Product.all.sample(3)
+  Product.insert_all(products)
 
-  products.each do |product|
-    WorkdayProduct.create(workday_id: workday.id, product_id: product.id, stock: stocks.sample, delivery_time: delivery_time)
+  Product.all.each do |product|
+    filename = "#{product.name.downcase}.jpg"
+    product.cover_photo.attach(
+      io: File.open(Rails.root.join('test/fixtures/files', filename)),
+      filename: filename
+    )
   end
 
-  quantities = [1, 3, 5]
+  customers = [
+    { name: "Iván", last_name: "Wolf Olivares", phone_number: "948454110", address: "Porcuro 2623", apartment: 701 },
+    { name: "Natalia", last_name: "Valenzuela Lepio", phone_number: "941640026", address: "Simón Bolivar 5020", apartment: 24 },
+    { name: "Oscar", last_name: "Carrasco", phone_number: "962058917", address: "Carlos Antúnez 650", apartment: 1212 },
+    { name: "Valentina", last_name: "Wolf Olivares", phone_number: "978873819", address: "Vivar 124", apartment: 121 }
+  ].map { |value| value.merge(timestamps)}
 
-  Customer.all.sample(3).each do |customer|
-    order = Order.create(customer: customer, workday: workday)
+  Customer.insert_all(customers)
 
-    products.sample(2).each do |product|
-      order.order_products << OrderProduct.create(product: product, quantity: quantities.sample)
+  Workday.all.each do |workday|
+
+    stocks = [10, 20, 30]
+    delivery_time = Date.today.midday + 1.hour
+
+    products = Product.all.sample(3)
+
+    products.each do |product|
+      WorkdayProduct.create(workday_id: workday.id, product_id: product.id, stock: stocks.sample, delivery_time: delivery_time)
     end
 
-    order.save
+    quantities = [1, 3, 5]
+
+    Customer.all.sample(3).each do |customer|
+      order = Order.create(customer: customer, workday: workday)
+
+      products.sample(2).each do |product|
+        order.order_products << OrderProduct.create(product: product, quantity: quantities.sample)
+      end
+
+      order.save
+    end
   end
 end
