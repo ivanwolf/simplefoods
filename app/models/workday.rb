@@ -15,7 +15,7 @@ class Workday < ApplicationRecord
 
   has_many :orders
 
-  def title
-    I18n.l(work_date, format: "%A %d de %B")
+  def title(mobile = false)
+    I18n.l(work_date, format: mobile ? "%a %d, %B" : "%A %d de %B")
   end
 end

@@ -1,28 +1,27 @@
-<div class="flex items-center mb-4">
-  <%= link_to workdays_path, class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
-  <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
+<div class="flex items-center md:mb-2">
+  <%= link_to workdays_path, class: "border rounded p-2 mr-2 ml-2 md:ml-0 md:mr-4 hover:bg-gray-50" do%>
+  <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-4 md:h-6")%>
   <%end %>
-  <div data-controller="clipboard">
-    <h1 class="text-3xl mb-1">Jornada del <%= @workday.title %></h1>
-    <h2 class="text-gray-700">Link para pedir: <input readonly type="text"
-        class="focus:outline-none w-80 h-6 bg-yellow-400 text-gray-900 rounded-full px-2 py-1"
-        data-clipboard-target="source" value="<%= new_order_url(workday_id: @workday.id) %>" /> <button
-        data-action="clipboard#copy"
-        class="leading-none border border-blue-500 text-blue-500 rounded-full px-2 py-1 ml-2">Copiar enlace</button>
-    </h2>
-  </div>
+  <h1 class="text-xl md:text-3xl">Jornada <%= @workday.title(browser.device.mobile?) %></h1>
 </div>
-<div class="flex justify-between items-center mb-4">
+<div data-controller="clipboard" class="ml-2 md:ml-0">
+  <h2 class="text-gray-700">Link para compartir con tus clientes <% if browser.device.mobile?%> <br /> <% end %><input readonly type="text"
+      class="focus:outline-none w-1/2 md:w-64 h-6 bg-yellow-400 text-gray-900 rounded-full px-2 py-1 mb-1 md:mb-0 mr-2"
+      data-clipboard-target="source" value="<%= new_order_url(workday_id: @workday.id) %>" /> <button
+      data-action="clipboard#copy"
+      class="leading-none border border-blue-500 text-blue-500 rounded-full px-2 py-1">Copiar enlace</button>
+  </h2>
+</div>
+<div class="flex justify-between items-center mb-2 md:mb-4 ml-2 md:ml-0">
   <h2 class="text-2xl">Productos ofrecidos</h2>
-  <%= link_to "Agregar un producto", new_workday_product_path(workday_id: @workday.id), class: "border-2 border-green-700 bg-green-100 text-green-700 px-4 py-2 rounded-md "%>
 </div>
-<div class="bg-white border rounded-lg mb-4">
+<div class="card mb-4">
   <div class="flex flex-col mx-auto">
     <div class="overflow-x-scroll">
       <table class="table-fixed min-w-full">
         <thead>
           <tr class="border-b h-14">
-            <th class="text-left w-20 pl-4"></th>
+            <th class="text-left w-20 md:pl-4"></th>
             <th class="text-left">Nombre</th>
             <th class="text-right">Hora de entrega</th>
             <th class="text-right">Stock inicial</th>
@@ -31,9 +30,9 @@
           </tr>
         </thead>
         <tbody>
-          <% @workday.workday_products.each do |wd_product| %>
-          <tr class="border-b h-14">
-            <td class="pl-4">
+          <% @workday.workday_products.each_with_index do |wd_product, index| %>
+          <tr class="<%= index < @workday.workday_products.size - 1 ? "border-b" : "" %> h-14">
+            <td class="md:pl-4">
               <%= image_tag wd_product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg" %>
             </td>
             <td class="text-left"><%= wd_product.name %></td>
@@ -53,17 +52,16 @@
     </div>
   </div>
 </div>
-<div class="flex justify-between items-center mb-4">
-  <h2 class="text-2xl">Pedidos</h2>
-  <%= link_to "Hacer un pedido", new_order_path(workday_id: @workday.id), class: "border-2 border-green-700 bg-green-100 text-green-700 px-4 py-2 rounded-md "%>
+<div class="flex justify-between items-center ml-2 mb-4 md:ml-0">
+  <h2 class="text-2xl ">Lista de pedidos</h2>
 </div>
-<div class="bg-white border rounded-lg">
+<div class="card mb-4">
   <div class="flex flex-col mx-auto">
     <div class="overflow-x-scroll">
       <table class="table-fixed min-w-full">
         <thead>
           <tr class="border-b h-14">
-            <th class="text-left pl-4">ID</th>
+            <th class="text-left md:pl-4">ID</th>
             <th class="text-left">Cliente</th>
             <th class="text-right">Productos</th>
             <th class="text-right">Subtotal</th>
@@ -74,7 +72,7 @@
         </thead>
         <tbody>
           <tr class="border-b h-14 bg-yellow-50">
-            <td class="text-left pl-4"></td>
+            <td class="text-left md:pl-4"></td>
             <td class="text-left font-bold">Totales</td>
             <td class="text-right">
               <% @workday.products.each do |product| %>
@@ -97,9 +95,9 @@
             <td></td>
 
           </tr>
-          <% @workday.orders.each do |order| %>
-          <tr class="border-b h-14">
-            <td class="text-left pl-4"># <%= order.id %></td>
+          <% @workday.orders.each_with_index do |order, index| %>
+          <tr class="<%= index < @workday.orders.size - 1 ? "border-b" : "" %> h-14">
+            <td class="text-left md:pl-4"># <%= order.id %></td>
             <td class="text-left">
               <div>
                 <%= order.customer.full_name %>
