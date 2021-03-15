@@ -14,7 +14,7 @@
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<body class="flex h-full">
+<body class="flex min-h-full">
   <nav class="w-64 bg-yellow-300 shadow-lg pt-32 flex flex-col">
     <div class="flex-1 flex flex-col w-full">
       <%= link_to workdays_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-400 rounded-lg #{class_names("bg-yellow-400": request.path_info.include?("/workday"))}" do %>

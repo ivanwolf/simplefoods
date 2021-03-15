@@ -4,21 +4,21 @@
 @import "tailwindcss/utilities";
 
 html {
-    @apply h-full;
+  @apply h-full;
 
-    /* Load system fonts */
-    font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
-        Roboto, Helvetica Neue, sans-serif;
+  /* Load system fonts */
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
+    Roboto, Helvetica Neue, sans-serif;
 
-    /* Make type rendering look crisper */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* Make type rendering look crisper */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-    /* Disable auto-enlargement of small text in Safari */
-    text-size-adjust: 100%;
+  /* Disable auto-enlargement of small text in Safari */
+  text-size-adjust: 100%;
 
-    /* Enable kerning and optional ligatures */
-    text-rendering: optimizeLegibility;
+  /* Enable kerning and optional ligatures */
+  text-rendering: optimizeLegibility;
 }
 
 /**
@@ -30,9 +30,8 @@ input,
 optgroup,
 select,
 textarea {
-    font-family: inherit;
+  font-family: inherit;
 }
-
 
 abbr {
   display: none;
