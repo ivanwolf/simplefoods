@@ -3,6 +3,7 @@ es:
     submit:
       workday_product:
         create: "Agregar producto"
+        update: "Actualizar producto"
       workday:
         create: "Crear %{model}"
       product:
