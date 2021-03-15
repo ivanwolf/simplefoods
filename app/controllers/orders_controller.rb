@@ -35,6 +35,8 @@ class OrdersController < ApplicationController
     redirect_to workday_path(@order.workday)
   end
 
+  private
+
   def order_params
     params.require(:order).permit(
       :workday_id, :delivery_comment,
