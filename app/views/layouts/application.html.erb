@@ -30,7 +30,7 @@
   <div class="bg-gray-100 w-full relative">
     <section class="absolute w-full left-0 right-0">
       <% flash.each do |message_type, message| %>
-        <div id=<%= message_type %> class="mt-16 p-2 mx-16 rounded-lg border <%= message_type == "notice" ? "bg-green-100 border-green-500" : "bg-red-100 border-red-500"%>"><%= message %></div>
+        <div id=<%= message_type %> class="mt-16 px-3 py-2 mx-16 rounded-lg border <%= message_type == "notice" ? "bg-green-100 text-green-700 border-green-700" : "bg-red-100 border-red-500"%>"><%= message %></div>
       <% end %>
     </section>
     <%= yield %>
