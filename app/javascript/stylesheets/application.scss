@@ -36,3 +36,7 @@ textarea {
 abbr {
   display: none;
 }
+
+.card {
+  @apply bg-white border md:rounded-lg p-2 md:p-4;
+}

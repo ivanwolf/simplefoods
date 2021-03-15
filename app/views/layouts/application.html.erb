@@ -15,19 +15,23 @@
 </head>
 
 <body class="flex min-h-full">
-  <nav class="w-64 bg-yellow-300 shadow-lg pt-32 flex flex-col">
+  <% unless browser.device.mobile? %>
+  <nav class="w-64 bg-yellow-300 shadow-lg pt-32 flex flex-col border-r-2 border-yellow-500">
     <div class="flex-1 flex flex-col w-full">
-      <%= link_to workdays_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-400 rounded-lg #{class_names("bg-yellow-400": request.path_info.include?("/workday"))}" do %>
+      <%= link_to workdays_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-400 rounded-md #{class_names("bg-yellow-400": request.path_info.include?("/workday"))}" do %>
       <%= Workday.model_name.human(count: 2) %>
       <% end %>
-      <%= link_to products_path, class: "mx-4 px-2 py-2 hover:bg-yellow-400 rounded-lg #{class_names("bg-yellow-400": request.path_info.include?("/products"))}" do %>
+      <%= link_to products_path, class: "mx-4 px-2 py-2 hover:bg-yellow-400 rounded-md #{class_names("bg-yellow-400": request.path_info.include?("/products"))}" do %>
       <%= Product.model_name.human(count: 2) %>
       <% end %>
     </div>
 
     <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "mx-4 px-2 py-2 text-white" %>
   </nav>
+  <% end %>
   <div class="bg-gray-100 w-full relative">
+    <nav class="fixed left-0 right-0 h-16 bg-white border-b-2">
+    </nav>
     <section class="absolute w-full left-0 right-0">
       <% flash.each do |message_type, message| %>
       <div id=<%= message_type %>
@@ -35,7 +39,9 @@
         <%= message %></div>
       <% end %>
     </section>
-    <%= yield %>
+    <div class="pt-20 md:pl-10 md:pr-6 md:py-20">
+      <%= yield %>
+    </div>
     <section class="fixed w-full right-0 flex items-center justify-center left-0 bottom-0">
 
       <div data-controller="toast"

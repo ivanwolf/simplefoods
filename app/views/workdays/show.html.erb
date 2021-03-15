@@ -1,132 +1,138 @@
-<div class="p-16">
-  <div class="flex items-center mb-4">
-    <%= link_to workdays_path, class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
-    <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
-    <%end %>
-    <div data-controller="clipboard">
-      <h1 class="text-3xl mb-1">Jornada del <%= @workday.title %></h1>
-      <h2 class="text-gray-700">Link para pedir: <input readonly type="text" class="focus:outline-none w-80 h-6 bg-yellow-400 text-gray-900 rounded-full px-2 py-1" data-clipboard-target="source" value="<%= new_order_url(workday_id: @workday.id) %>" /> <button data-action="clipboard#copy" class="leading-none border border-blue-500 text-blue-500 rounded-full px-2 py-1 ml-2">Copiar enlace</button></h2>
+<div class="flex items-center mb-4">
+  <%= link_to workdays_path, class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
+  <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
+  <%end %>
+  <div data-controller="clipboard">
+    <h1 class="text-3xl mb-1">Jornada del <%= @workday.title %></h1>
+    <h2 class="text-gray-700">Link para pedir: <input readonly type="text"
+        class="focus:outline-none w-80 h-6 bg-yellow-400 text-gray-900 rounded-full px-2 py-1"
+        data-clipboard-target="source" value="<%= new_order_url(workday_id: @workday.id) %>" /> <button
+        data-action="clipboard#copy"
+        class="leading-none border border-blue-500 text-blue-500 rounded-full px-2 py-1 ml-2">Copiar enlace</button>
+    </h2>
+  </div>
+</div>
+<div class="flex justify-between items-center mb-4">
+  <h2 class="text-2xl">Productos ofrecidos</h2>
+  <%= link_to "Agregar un producto", new_workday_product_path(workday_id: @workday.id), class: "border-2 border-green-700 bg-green-100 text-green-700 px-4 py-2 rounded-md "%>
+</div>
+<div class="bg-white border rounded-lg mb-4">
+  <div class="flex flex-col mx-auto">
+    <div class="overflow-x-scroll">
+      <table class="table-fixed min-w-full">
+        <thead>
+          <tr class="border-b h-14">
+            <th class="text-left w-20 pl-4"></th>
+            <th class="text-left">Nombre</th>
+            <th class="text-right">Hora de entrega</th>
+            <th class="text-right">Stock inicial</th>
+            <th class="text-right">Unidades pedidas</th>
+            <th class="text-right pr-4">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @workday.workday_products.each do |wd_product| %>
+          <tr class="border-b h-14">
+            <td class="pl-4">
+              <%= image_tag wd_product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg" %>
+            </td>
+            <td class="text-left"><%= wd_product.name %></td>
+            <td class="text-right"><%= l(wd_product.delivery_time, format: "%H:%M") %></td>
+            <td class="text-right"><%= wd_product.stock %></td>
+            <td class="text-right"><%= OrderCalculator.units_taken(@workday, wd_product.product) %></td>
+            <td class="text-right pr-4">
+              <div class="flex flex-col justify-center">
+                <%= link_to "Modificar", edit_workday_product_path(wd_product), class: "text-blue-500 text-sm" %>
+                <%= link_to "Eliminar", workday_product_path(wd_product), class: "text-red-500 text-sm",method: :delete, data: {confirm: "¿Estás seguro de que quieres eliminar el stock?"}%>
+              </div>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="flex justify-between items-center mb-4">
-    <h2 class="text-2xl">Productos ofrecidos</h2>
-    <%= link_to "Agregar un producto", new_workday_product_path(workday_id: @workday.id), class: "border-2 border-green-700 bg-green-100 text-green-700 px-4 py-2 rounded-md "%>
-  </div>
-  <div class="bg-white border rounded-lg mb-4">
-    <div class="flex flex-col mx-auto">
-      <div class="overflow-x-scroll">
-        <table class="table-fixed min-w-full">
-          <thead>
-            <tr class="border-b h-14">
-              <th class="text-left w-20 pl-4"></th>
-              <th class="text-left">Nombre</th>
-              <th class="text-right">Hora de entrega</th>
-              <th class="text-right">Stock inicial</th>
-              <th class="text-right">Unidades pedidas</th>
-              <th class="text-right pr-4">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @workday.workday_products.each do |wd_product| %>
-            <tr class="border-b h-14">
-              <td class="pl-4"><%= image_tag wd_product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg" %></td>
-              <td class="text-left"><%= wd_product.name %></td>
-              <td class="text-right"><%= l(wd_product.delivery_time, format: "%H:%M") %></td>
-              <td class="text-right"><%= wd_product.stock %></td>
-              <td class="text-right"><%= OrderCalculator.units_taken(@workday, wd_product.product) %></td>
-              <td class="text-right pr-4">
-                <div class="flex flex-col justify-center">
-                  <%= link_to "Modificar", edit_workday_product_path(wd_product), class: "text-blue-500 text-sm" %>
-                  <%= link_to "Eliminar", workday_product_path(wd_product), class: "text-red-500 text-sm",method: :delete, data: {confirm: "¿Estás seguro de que quieres eliminar el stock?"}%>
-                </div>
-              </td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="flex justify-between items-center mb-4">
-    <h2 class="text-2xl">Pedidos</h2>
-    <%= link_to "Hacer un pedido", new_order_path(workday_id: @workday.id), class: "border-2 border-green-700 bg-green-100 text-green-700 px-4 py-2 rounded-md "%>
-  </div>
-  <div class="bg-white border rounded-lg">
-    <div class="flex flex-col mx-auto">
-      <div class="overflow-x-scroll">
-        <table class="table-fixed min-w-full">
-          <thead>
-            <tr class="border-b h-14">
-              <th class="text-left pl-4">ID</th>
-              <th class="text-left">Cliente</th>
-              <th class="text-right">Productos</th>
-              <th class="text-right">Subtotal</th>
-              <th class="text-right">Total</th>
-              <th class="text-right">Pagado</th>
-              <th class="text-right pr-4">Acciones </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="border-b h-14 bg-yellow-50">
-              <td class="text-left pl-4"></td>
-              <td class="text-left font-bold">Totales</td>
-              <td class="text-right">
-                <% @workday.products.each do |product| %>
-                <div>
-                  <%= OrderCalculator.units_taken(@workday, product)  %> x <%= product.name %>
-                </div>
-                <% end %>
-              </td>
-              <td class="text-right">
-                <% @workday.products.each do |product| %>
-                <div>
-                  <%= currency_formatter(OrderCalculator.revenue_at(@workday, product))  %>
-                </div>
-                <% end %>
-              </td>
-              <td class="text-right">
-                <%= currency_formatter(OrderCalculator.revenue_at(@workday))  %>
-              </td>
-              <td></td>
-              <td></td>
+</div>
+<div class="flex justify-between items-center mb-4">
+  <h2 class="text-2xl">Pedidos</h2>
+  <%= link_to "Hacer un pedido", new_order_path(workday_id: @workday.id), class: "border-2 border-green-700 bg-green-100 text-green-700 px-4 py-2 rounded-md "%>
+</div>
+<div class="bg-white border rounded-lg">
+  <div class="flex flex-col mx-auto">
+    <div class="overflow-x-scroll">
+      <table class="table-fixed min-w-full">
+        <thead>
+          <tr class="border-b h-14">
+            <th class="text-left pl-4">ID</th>
+            <th class="text-left">Cliente</th>
+            <th class="text-right">Productos</th>
+            <th class="text-right">Subtotal</th>
+            <th class="text-right">Total</th>
+            <th class="text-right">Pagado</th>
+            <th class="text-right pr-4">Acciones </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b h-14 bg-yellow-50">
+            <td class="text-left pl-4"></td>
+            <td class="text-left font-bold">Totales</td>
+            <td class="text-right">
+              <% @workday.products.each do |product| %>
+              <div>
+                <%= OrderCalculator.units_taken(@workday, product)  %> x <%= product.name %>
+              </div>
+              <% end %>
+            </td>
+            <td class="text-right">
+              <% @workday.products.each do |product| %>
+              <div>
+                <%= currency_formatter(OrderCalculator.revenue_at(@workday, product))  %>
+              </div>
+              <% end %>
+            </td>
+            <td class="text-right">
+              <%= currency_formatter(OrderCalculator.revenue_at(@workday))  %>
+            </td>
+            <td></td>
+            <td></td>
 
-            </tr>
-            <% @workday.orders.each do |order| %>
-            <tr class="border-b h-14">
-              <td class="text-left pl-4"># <%= order.id %></td>
-              <td class="text-left">
-                <div>
-                  <%= order.customer.full_name %>
-                </div>
-                <div>
-                  Tel: <%= order.customer.phone_number %> - Dir: <%= order.customer.address %> D. <%= order.customer.apartment %>
-                </div>
-              </td>
-              <td class="text-right">
-                <% order.order_products.each do |order_product| %>
-                <div>
-                  <%= order_product.quantity%> x <%= order_product.name %>
-                </div>
-                <% end %>
-              </td>
-              <td class="text-right">
-                <% order.order_products.each do |order_product| %>
-                <div>
-                  <%= currency_formatter(order_product.price)%>
-                </div>
-                <% end %>
-              </td>
-              <td class="text-right"><%= currency_formatter(order.total_price) %></td>
-              <td class="text-right"><%= order.paid? %></td>
-              <td class="text-right pr-4">
-                <%= link_to "Eliminar", order, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar el pedido?" }%>
-              </td>
-            </tr>
+          </tr>
+          <% @workday.orders.each do |order| %>
+          <tr class="border-b h-14">
+            <td class="text-left pl-4"># <%= order.id %></td>
+            <td class="text-left">
+              <div>
+                <%= order.customer.full_name %>
+              </div>
+              <div>
+                Tel: <%= order.customer.phone_number %> - Dir: <%= order.customer.address %> D.
+                <%= order.customer.apartment %>
+              </div>
+            </td>
+            <td class="text-right">
+              <% order.order_products.each do |order_product| %>
+              <div>
+                <%= order_product.quantity%> x <%= order_product.name %>
+              </div>
+              <% end %>
+            </td>
+            <td class="text-right">
+              <% order.order_products.each do |order_product| %>
+              <div>
+                <%= currency_formatter(order_product.price)%>
+              </div>
+              <% end %>
+            </td>
+            <td class="text-right"><%= currency_formatter(order.total_price) %></td>
+            <td class="text-right"><%= order.paid? %></td>
+            <td class="text-right pr-4">
+              <%= link_to "Eliminar", order, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar el pedido?" }%>
+            </td>
+          </tr>
 
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
