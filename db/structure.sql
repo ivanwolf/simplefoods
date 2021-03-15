@@ -14,6 +14,37 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: account_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.account_types (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL
+);
+
+
+--
+-- Name: account_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.account_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: account_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.account_types_id_seq OWNED BY public.account_types.id;
+
+
+--
 -- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -169,6 +200,37 @@ CREATE TABLE public.ar_internal_metadata (
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL
 );
+
+
+--
+-- Name: banks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.banks (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL
+);
+
+
+--
+-- Name: banks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.banks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: banks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.banks_id_seq OWNED BY public.banks.id;
 
 
 --
@@ -345,6 +407,75 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: stores; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stores (
+    id bigint NOT NULL,
+    name character varying,
+    slug character varying,
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL
+);
+
+
+--
+-- Name: stores_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stores_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stores_id_seq OWNED BY public.stores.id;
+
+
+--
+-- Name: transfer_data; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.transfer_data (
+    id bigint NOT NULL,
+    store_id bigint NOT NULL,
+    bank_id bigint NOT NULL,
+    account_type_id bigint NOT NULL,
+    rut character varying NOT NULL,
+    name character varying NOT NULL,
+    email character varying NOT NULL,
+    account_number character varying NOT NULL,
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL
+);
+
+
+--
+-- Name: transfer_data_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.transfer_data_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transfer_data_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.transfer_data_id_seq OWNED BY public.transfer_data.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -460,6 +591,13 @@ ALTER SEQUENCE public.workdays_id_seq OWNED BY public.workdays.id;
 
 
 --
+-- Name: account_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.account_types ALTER COLUMN id SET DEFAULT nextval('public.account_types_id_seq'::regclass);
+
+
+--
 -- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -485,6 +623,13 @@ ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAU
 --
 
 ALTER TABLE ONLY public.addresses ALTER COLUMN id SET DEFAULT nextval('public.addresses_id_seq'::regclass);
+
+
+--
+-- Name: banks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.banks ALTER COLUMN id SET DEFAULT nextval('public.banks_id_seq'::regclass);
 
 
 --
@@ -516,6 +661,20 @@ ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 
 --
+-- Name: stores id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stores ALTER COLUMN id SET DEFAULT nextval('public.stores_id_seq'::regclass);
+
+
+--
+-- Name: transfer_data id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.transfer_data ALTER COLUMN id SET DEFAULT nextval('public.transfer_data_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -534,6 +693,14 @@ ALTER TABLE ONLY public.workday_products ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.workdays ALTER COLUMN id SET DEFAULT nextval('public.workdays_id_seq'::regclass);
+
+
+--
+-- Name: account_types account_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.account_types
+    ADD CONSTRAINT account_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -577,6 +744,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: banks banks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.banks
+    ADD CONSTRAINT banks_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: customers customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -614,6 +789,22 @@ ALTER TABLE ONLY public.products
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: stores stores_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stores
+    ADD CONSTRAINT stores_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transfer_data transfer_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.transfer_data
+    ADD CONSTRAINT transfer_data_pkey PRIMARY KEY (id);
 
 
 --
@@ -725,6 +916,27 @@ COMMENT ON INDEX public.index_products_on_name IS 'No two products should have t
 
 
 --
+-- Name: index_transfer_data_on_account_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transfer_data_on_account_type_id ON public.transfer_data USING btree (account_type_id);
+
+
+--
+-- Name: index_transfer_data_on_bank_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transfer_data_on_bank_id ON public.transfer_data USING btree (bank_id);
+
+
+--
+-- Name: index_transfer_data_on_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transfer_data_on_store_id ON public.transfer_data USING btree (store_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -764,6 +976,14 @@ CREATE UNIQUE INDEX index_workday_products_on_workday_id_and_product_id ON publi
 --
 
 COMMENT ON INDEX public.index_workday_products_on_workday_id_and_product_id IS 'No order can have two of the same product';
+
+
+--
+-- Name: transfer_data fk_rails_2f1e4a90a1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.transfer_data
+    ADD CONSTRAINT fk_rails_2f1e4a90a1 FOREIGN KEY (account_type_id) REFERENCES public.account_types(id);
 
 
 --
@@ -815,11 +1035,27 @@ ALTER TABLE ONLY public.workday_products
 
 
 --
+-- Name: transfer_data fk_rails_bef1c724ad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.transfer_data
+    ADD CONSTRAINT fk_rails_bef1c724ad FOREIGN KEY (store_id) REFERENCES public.stores(id);
+
+
+--
 -- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: transfer_data fk_rails_d432d11379; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.transfer_data
+    ADD CONSTRAINT fk_rails_d432d11379 FOREIGN KEY (bank_id) REFERENCES public.banks(id);
 
 
 --
@@ -841,6 +1077,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210305132654'),
 ('20210305200737'),
 ('20210313175321'),
-('20210313225833');
+('20210313225833'),
+('20210315020819');
 
 
