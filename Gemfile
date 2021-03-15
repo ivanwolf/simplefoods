@@ -16,6 +16,9 @@ gem 'simple_form'
 # Authenticate users
 gem 'devise'
 
+# Check browser info from headers
+gem 'browser'
+
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', github: 'rails/webpacker', branch: 'master'
 
