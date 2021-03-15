@@ -10,6 +10,8 @@
 #  updated_at  :timestamptz      not null
 #
 class Order < ApplicationRecord
+  acts_as_tenant :store
+
   belongs_to :customer
   belongs_to :workday
 

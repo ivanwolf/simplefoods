@@ -10,6 +10,8 @@
 #  updated_at :timestamptz      not null
 #
 class OrderProduct < ApplicationRecord
+  acts_as_tenant :store
+
   belongs_to :order
   belongs_to :product
 

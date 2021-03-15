@@ -8,6 +8,8 @@
 #  updated_at :timestamptz      not null
 #
 class Workday < ApplicationRecord
+  acts_as_tenant :store
+
   has_many :workday_products
   has_many :products, through: :workday_products
 

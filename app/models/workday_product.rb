@@ -10,6 +10,8 @@
 #  updated_at :timestamptz      not null
 #
 class WorkdayProduct < ApplicationRecord
+  acts_as_tenant :store
+
   belongs_to :workday
   belongs_to :product
 

@@ -11,6 +11,8 @@
 #  updated_at   :timestamptz      not null
 #
 class Customer < ApplicationRecord
+  acts_as_tenant :store
+
   validates :name, :last_name, :phone_number, :apartment, :address, presence: true
 
   def full_name

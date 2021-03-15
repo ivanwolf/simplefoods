@@ -9,6 +9,9 @@
 #  updated_at :timestamptz      not null
 #
 class Product < ApplicationRecord
+  acts_as_tenant :store
+
+
   has_one_attached :cover_photo
 
   validates :name, presence: true, allow_blank: false
