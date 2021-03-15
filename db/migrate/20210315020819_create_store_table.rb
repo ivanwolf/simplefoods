@@ -51,6 +51,5 @@ class CreateStoreTable < ActiveRecord::Migration[7.0]
     change_column_null :workday_products, :store_id, false
     change_column_null :orders, :store_id, false
     change_column_null :order_products, :store_id, false
-    change_column_null :users, :store_id, false
   end
 end

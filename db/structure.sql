@@ -492,7 +492,7 @@ CREATE TABLE public.users (
     remember_created_at timestamp with time zone,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
-    store_id bigint NOT NULL
+    store_id bigint
 );
 
 
