@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 volumes:
   db_data:
@@ -11,7 +11,7 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
-      - '5432:5432'
+      - "5432:5432"
 
   app:
     build: .
@@ -22,5 +22,14 @@ services:
       - "3000:3000"
     depends_on:
       - postgres
+      - webpack
+    volumes:
+      - .:/simplefoods
+
+  webpack:
+    build: .
+    ports:
+      - "3035:3035"
+    command: ["bin/webpack-dev-server"]
     volumes:
       - .:/simplefoods
