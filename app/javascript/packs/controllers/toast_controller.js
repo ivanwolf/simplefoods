@@ -7,7 +7,7 @@ export default class extends Controller {
     this.listener = (event) => {
       this.contentTarget.textContent = event.detail.message;
 
-      this.show();
+      this.show(event.detail.messageType);
 
       this.timeout = setTimeout(() => {
         this.hide();
@@ -21,12 +21,20 @@ export default class extends Controller {
     window.removeEventListener("toast:show", this.listener);
   }
 
-  show() {
-    this.element.classList.toggle("-mb-16");
+  show(messageType) {
+    if (messageType === "error") {
+      this.element.classList.toggle("bg-red-500");
+    }
+    if (messageType === "success") {
+      this.element.classList.toggle("bg-green-500");
+    }
+    this.element.classList.toggle("-mb-20");
   }
 
   hide() {
-    this.element.classList.toggle("-mb-16");
+    this.element.classList.toggle("-mb-20");
+    this.element.classList.toggle("bg-red-500");
+    this.element.classList.toggle("bg-green-500");
     clearTimeout(this.timeout);
   }
 }

@@ -39,25 +39,18 @@
         class="p-2"><%= image_tag("icons/MobileHamburgerMajor.svg", class: "h-6 fill-current text-white")%></button>
       <% end %>
     </nav>
-    <section class="absolute w-full left-0 right-0">
-      <% flash.each do |message_type, message| %>
-      <div id=<%= message_type %>
-        class="mt-16 px-3 py-2 mx-16 rounded-lg border <%= message_type == "notice" ? "bg-green-100 text-green-700 border-green-700" : "bg-red-100 border-red-500"%>">
-        <%= message %></div>
-      <% end %>
-    </section>
+
     <div class="pt-20 md:pl-10 md:pr-6 md:py-20">
       <%= yield %>
     </div>
-    <section class="fixed w-full right-0 flex items-center justify-center left-0 bottom-0">
+    <%= render partial: "components/toast" %>
 
-      <div data-controller="toast"
-        class="flex items-center justify-center transition-all duration-200 ease-in-out bg-gray-900 text-white shadow-lg p-4 mb-8 -mb-16 rounded-lg">
-        <span data-toast-target="content"></span>
-        <button data-action="toast#hide"
-          class="ml-2"><%= image_tag("icons/MobileCancelMajor.svg", class: "h-4 fill-current text-white")%></button>
+    <section class="absolute w-full left-0 right-0">
+      <% flash.each do |message_type, message| %>
+      <div class="invisible" data-controller="flash" data-flash-message-value="<%= message %>"
+        data-flash-message-type-value="<%= message_type %>" data-flash-duration-value=<%= 6000 %>>
       </div>
-
+      <% end %>
     </section>
   </div>
 </body>
