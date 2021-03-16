@@ -4,7 +4,7 @@ require "nested_form/builder_mixin"
 
 
 RailsAdmin.config do |config|
-  class RailsAdmin::Config::Fields::Types::Timestamp < RailsAdmin::Config::Fields::Base
+  class RailsAdmin::Config::Fields::Types::Datetime < RailsAdmin::Config::Fields::Base
     RailsAdmin::Config::Fields::Types::register(self)
   end
 
