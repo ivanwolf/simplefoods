@@ -1,17 +1,10 @@
-<div class="p-32">
-  <div class="flex items-center mb-4">
-    <%= link_to "javascript:history.back()", class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
-    <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
+<%= title_with_back_button "Crear una jornada" %>
 
-    <%end %>
-    <h1 class="text-3xl">Crear una jornada</h1>
-  </div>
-  <div class="border bg-white rounded-lg p-4 w-96">
-    <%= simple_form_for @workday do |f| %>
+<div class="card md:w-96">
+  <%= simple_form_for @workday do |f| %>
 
-      <%= f.input :work_date, as: :date, html5: true %>
+  <%= f.input :work_date, as: :date, html5: true, input_html: { class: "w-full"}  %>
 
-      <%= f.submit type: :submit, class: "px-4 py-2 rounded-md bg-yellow-500 text-white cursor-pointer" %>
-    <% end %>
-  </div>
+  <%= f.submit type: :submit, class: "px-4 py-2 rounded-md bg-yellow-500 text-white cursor-pointer" %>
+  <% end %>
 </div>

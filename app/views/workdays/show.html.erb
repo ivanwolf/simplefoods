@@ -1,9 +1,5 @@
-<div class="flex items-center md:mb-2">
-  <%= link_to workdays_path, class: "border rounded p-2 mr-2 ml-2 md:ml-0 md:mr-4 hover:bg-gray-50" do%>
-  <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-4 md:h-6")%>
-  <%end %>
-  <h1 class="text-xl md:text-3xl">Jornada <%= @workday.title(browser.device.mobile?) %></h1>
-</div>
+<%= title_with_back_button "Jornada #{@workday.title(browser.device.mobile?)}" %>
+
 <div data-controller="clipboard" class="ml-2 md:ml-0">
   <h2 class="text-gray-700">Link para compartir con tus clientes <% if browser.device.mobile?%> <br /> <% end %><input readonly type="text"
       class="focus:outline-none w-1/2 md:w-64 h-6 bg-yellow-400 text-gray-900 rounded-full px-2 py-1 mb-1 md:mb-0 mr-2"
