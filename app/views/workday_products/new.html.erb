@@ -1,15 +1,5 @@
-<div class="p-32">
-  <div class="flex items-center mb-4">
-    <%= link_to "javascript:history.back()", class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
-    <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
-    <%end %>
-    <div>
-      <h1 class="text-3xl">Agregar producto</h1>
-      <h2 class="text-gray-600">Este producto será vendido durante la jornada del <%= @workday.title %></h2>
-    </div>
+<%= title_with_back_button "Modificar producto", "Este producto será vendido durante la jornada del #{@workday_product.workday.title}" %>
 
-  </div>
-  <div class="card w-96">
-    <%= render 'form' %>
-  </div>
+<div class="card md:w-96">
+  <%= render 'form' %>
 </div>

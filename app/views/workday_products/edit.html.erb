@@ -1,15 +1,6 @@
-<div class="p-32">
-  <div class="flex items-center mb-4">
-    <%= link_to "javascript:history.back()", class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
-    <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
+<%= title_with_back_button "Modificar producto", "Estos cambios solo serán válidos para la jornada del #{@workday_product.workday.title}" %>
 
-    <%end %>
-    <div>
-      <h1 class="text-3xl">Modificar producto</h1>
-      <h2 class="text-gray-600">Estos cambios solo serán válidos para la jornada del <%= @workday_product.workday.title %></h2>
-    </div>
-  </div>
-  <div class="card w-96">
-    <%= render 'form' %>
-  </div>
+
+<div class="card md:w-96">
+  <%= render 'form' %>
 </div>

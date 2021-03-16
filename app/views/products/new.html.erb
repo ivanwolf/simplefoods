@@ -1,19 +1,12 @@
-<div class="p-32">
-  <div class="flex items-center mb-4">
-    <%= link_to "javascript:history.back()", class: "border rounded p-2 mr-4 hover:bg-gray-50" do%>
-    <%= image_tag("icons/ArrowLeftMinor.svg", class: "h-6")%>
+<%= title_with_back_button "Agregar producto" %>
 
-    <%end %>
-    <h1 class="text-3xl">Agregar producto</h1>
-  </div>
-  <div class="card w-96">
-    <%= simple_form_for @product do |f| %>
-      <%= f.input :name %>
-      <%= f.input :price, type: :integer %>
-      <label>Foto</label>
-      <%= f.file_field :cover_photo, class: "mb-2" %>
+<div class="card w-96">
+  <%= simple_form_for @product do |f| %>
+  <%= f.input :name %>
+  <%= f.input :price, type: :integer %>
+  <label>Foto</label>
+  <%= f.file_field :cover_photo, class: "mb-2" %>
 
-      <%= f.submit type: :submit, class: "px-4 py-2 rounded-md bg-yellow-500 text-white cursor-pointer" %>
-    <% end %>
-  </div>
+  <%= f.submit type: :submit, class: "px-4 py-2 rounded-md bg-yellow-500 text-white cursor-pointer" %>
+  <% end %>
 </div>
