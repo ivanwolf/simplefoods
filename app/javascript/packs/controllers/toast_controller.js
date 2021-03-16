@@ -5,7 +5,9 @@ export default class extends Controller {
 
   connect() {
     this.listener = (event) => {
-      this.show(event.detail.message);
+      this.contentTarget.textContent = event.detail.message;
+
+      this.show();
 
       this.timeout = setTimeout(() => {
         this.hide();
@@ -16,11 +18,10 @@ export default class extends Controller {
   }
 
   disconnect() {
-    window.removeEventListener("toadt:show", this.listener);
+    window.removeEventListener("toast:show", this.listener);
   }
 
-  show(message = "") {
-    this.contentTarget.textContent = message;
+  show() {
     this.element.classList.toggle("-mb-16");
   }
 
