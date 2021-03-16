@@ -1,6 +1,6 @@
 require "nested_form/engine"
 require "nested_form/builder_mixin"
-
+require "rails_ext/active_record_datetime_uses_timestamptz"
 
 
 RailsAdmin.config do |config|
