@@ -1,7 +1,12 @@
 require "nested_form/engine"
 require "nested_form/builder_mixin"
 
+
+
 RailsAdmin.config do |config|
+  class RailsAdmin::Config::Fields::Types::Timestamp < RailsAdmin::Config::Fields::Base
+    RailsAdmin::Config::Fields::Types::register(self)
+  end
 
   ### Popular gems integration
 
@@ -47,6 +52,3 @@ RailsAdmin.config do |config|
   end
 end
 
-class RailsAdmin::Config::Fields::Types::Int8range < RailsAdmin::Config::Fields::Base
-  RailsAdmin::Config::Fields::Types::register(self)
-end
