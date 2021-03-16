@@ -492,7 +492,8 @@ CREATE TABLE public.users (
     remember_created_at timestamp with time zone,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
-    store_id bigint
+    store_id bigint,
+    is_admin boolean DEFAULT false
 );
 
 
@@ -1190,6 +1191,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210305200737'),
 ('20210313175321'),
 ('20210313225833'),
-('20210315020819');
+('20210315020819'),
+('20210316162504');
 
 
