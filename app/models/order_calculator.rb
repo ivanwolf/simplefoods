@@ -16,4 +16,8 @@ class OrderCalculator
 
     scope.sum("order_products.quantity * products.price")
   end
+
+  def self.total_units_taken(product_id)
+    OrderProduct.where(product_id: product_id).sum(:quantity)
+  end
 end
