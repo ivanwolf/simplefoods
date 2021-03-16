@@ -43,6 +43,15 @@
             </td>
           </tr>
           <% end %>
+          <tr class="text-center">
+            <td colspan="6" class="pt-4">
+              <%= link_to new_workday_product_path(workday_id: @workday.id) do %>
+              <div class="hover:bg-gray-100 border-gray-400 cursor-pointer border-dashed flex h-14 rounded border-2 items-center justify-center">
+                Agregar un producto
+              </div>
+              <% end  %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
