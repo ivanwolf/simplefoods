@@ -5,13 +5,15 @@ export default class extends Controller {
 
   connect() {
     this.listener = (event) => {
-      this.contentTarget.textContent = event.detail.message;
+      const { message, messageType, duration } = event.detail;
 
-      this.show(event.detail.messageType);
+      this.contentTarget.textContent = message;
+
+      this.show(messageType);
 
       this.timeout = setTimeout(() => {
-        this.hide();
-      }, event.detail.duration || 5000);
+        this.hide(messageType);
+      }, duration || 5000);
     };
 
     window.addEventListener("toast:show", this.listener);
@@ -28,13 +30,19 @@ export default class extends Controller {
     if (messageType === "notice") {
       this.element.classList.toggle("bg-green-500");
     }
+
     this.element.classList.toggle("-mb-20");
   }
 
-  hide() {
+  hide(messageType) {
+    if (messageType === "error") {
+      this.element.classList.toggle("bg-red-500");
+    }
+    if (messageType === "notice") {
+      this.element.classList.toggle("bg-green-500");
+    }
+
     this.element.classList.toggle("-mb-20");
-    this.element.classList.toggle("bg-red-500");
-    this.element.classList.toggle("bg-green-500");
     clearTimeout(this.timeout);
   }
 }
