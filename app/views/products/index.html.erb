@@ -1,25 +1,37 @@
-<div class="pt-32 px-16">
-  <h1 class="text-3xl mb-4">Productos</h1>
-  <div class="flex">
-    <% @products.each do |product| %>
-    <div
-      class="border w-48 bg-white rounded-lg p-2 flex flex-col items-center justify-center mr-4">
-      <% if product.cover_photo.attached?%>
-      <%= image_tag product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-40 overflow-hidden rounded-lg mb-2" %>
-      <% end %>
-      <div class="w-full flex justify-between">
-        <div class="text-xl"><%= product.name %></div>
-        <div class="text-xl"><%= currency_formatter(product.price) %></div>
-      </div>
-      <%= link_to "Eliminar", product, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar el producto?" }%>
+<%= title_with_action_button "Catálogo de productos", "Agregar producto", new_product_path%>
+
+<div class="card mb-4">
+  <div class="flex flex-col mx-auto">
+    <div class="overflow-x-scroll">
+      <table class="table-fixed min-w-full">
+        <thead>
+          <tr class="border-b h-14">
+            <th class="text-left w-20 md:pl-4"></th>
+            <th class="text-left">Nombre</th>
+            <th class="text-right">Precio</th>
+            <th class="text-right">Unidades vendidas</th>
+            <th class="text-right pr-4">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products.each_with_index do |product, index| %>
+          <tr class="<%= index < @products.size - 1 ? "border-b" : "" %> h-14">
+            <td class="md:pl-4">
+              <%= image_tag product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg" %>
+            </td>
+            <td class="text-left"><%= product.name %></td>
+            <td class="text-right"><%= currency_formatter(product.price) %></td>
+            <td class="text-right"><%= OrderCalculator.total_units_taken(product) %></td>
+            <td class="text-right pr-4">
+              <div class="flex flex-col justify-center">
+                <%= link_to "Modificar", edit_workday_product_path(product), class: "text-blue-500 text-sm" %>
+                <%= link_to "Eliminar", product, class: "text-red-500 text-sm", method: :delete, data: {confirm: "¿Estás seguro de que quieres eliminar el producto?"}%>
+              </div>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-    <% end %>
-    <%= link_to new_product_path do %>
-    <div
-      class="border h-40 w-full bg-white rounded-lg p-4 flex flex-col items-center justify-center hover:bg-gray-50 cursor-pointer">
-      <%= image_tag("icons/AddMajor.svg", class: "h-16 mb-2")%>
-      <h2 class="text-xl">Agregar un producto</h2>
-    </div>
-    <% end %>
   </div>
 </div>
