@@ -10,6 +10,8 @@ gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 
+gem 'rails_admin', '~> 2.0'
+
 # Easy forms
 gem 'simple_form'
 
