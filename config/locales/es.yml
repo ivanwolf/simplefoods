@@ -70,6 +70,7 @@ es:
         product:
           actions:
             destroy: "Producto eliminado con correctamente"
+            update: "Producto actualizado correctamente"
     errors:
       models:
         customer:

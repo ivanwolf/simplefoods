@@ -24,7 +24,7 @@
             <td class="text-right"><%= OrderCalculator.total_units_taken(product) %></td>
             <td class="text-right pr-4">
               <div class="flex flex-col justify-center">
-                <%= link_to "Modificar", edit_workday_product_path(product), class: "text-blue-500 text-sm" %>
+                <%= link_to "Modificar", edit_product_path(product), class: "text-blue-500 text-sm" %>
                 <%= link_to "Eliminar", product, class: "text-red-500 text-sm", method: :delete, data: {confirm: "¿Estás seguro de que quieres eliminar el producto?"}%>
               </div>
             </td>

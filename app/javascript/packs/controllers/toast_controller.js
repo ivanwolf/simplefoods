@@ -25,7 +25,7 @@ export default class extends Controller {
     if (messageType === "error") {
       this.element.classList.toggle("bg-red-500");
     }
-    if (messageType === "success") {
+    if (messageType === "notice") {
       this.element.classList.toggle("bg-green-500");
     }
     this.element.classList.toggle("-mb-20");

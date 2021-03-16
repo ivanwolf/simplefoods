@@ -19,7 +19,6 @@ class WorkdayProductsController < ApplicationController
   end
 
   def edit
-    # @workday = Workday.find(params[:workday_id])
     @workday_product = WorkdayProduct.find(params[:id])
   end
 

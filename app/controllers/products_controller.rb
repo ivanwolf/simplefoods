@@ -18,6 +18,22 @@ class ProductsController < ApplicationController
     end
   end
 
+  def edit
+    @product = Product.find(params[:id])
+  end
+
+  def update
+    @product = Product.find(params[:id])
+
+    @product.assign_attributes(product_params)
+
+    if @product.save
+      redirect_to products_path, flash: { notice: I18n.t("activerecord.messages.models.product.actions.update") }
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @product = Product.find(params[:id])
 
