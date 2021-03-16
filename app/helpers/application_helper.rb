@@ -6,4 +6,8 @@ module ApplicationHelper
   def title_with_back_button(title, subtitle = "")
     render partial: "components/title_with_back_button", locals: { title: title, subtitle: subtitle }
   end
+
+  def title_with_action_button(title, label, path)
+    render partial: "components/title_with_action_button", locals: { title: title, label: label, path: path}
+  end
 end
