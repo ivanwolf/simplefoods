@@ -20,7 +20,7 @@ Finally start the development server
 docker-compose up app
 ```
 
-## Debuggin
+## Debugging
 
 If you need to use `byebug` run the server in deamon mode and the attach to the container running the app
 
