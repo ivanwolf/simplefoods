@@ -1,0 +1,11 @@
+<div class="flex-1 flex flex-col w-full">
+  <%= link_to workdays_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-400 rounded-md #{class_names("bg-yellow-400": request.path_info.include?("/workday"))}" do %>
+  <%= Workday.model_name.human(count: 2) %>
+  <% end %>
+  <%= link_to products_path, class: "mx-4 px-2 py-2 hover:bg-yellow-400 rounded-md #{class_names("bg-yellow-400": request.path_info.include?("/products"))}" do %>
+  <%= Product.model_name.human(count: 2) %>
+  <% end %>
+
+    <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "mx-4 px-2 py-2 text-white" %>
+
+</div>
