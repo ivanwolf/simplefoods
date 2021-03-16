@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development
 
-Things you may want to cover:
+You will need to have docker installed in your machine. First build the images:
 
-* Ruby version
+```bash
+docker-compose build
+```
 
-* System dependencies
+Then setup the database
 
-* Configuration
+```bash
+docker-compose run app bin/setup
+```
 
-* Database creation
+Finally start the development server
 
-* Database initialization
+```bash
+docker-compose up app
+```
 
-* How to run the test suite
+## Debuggin
 
-* Services (job queues, cache servers, search engines, etc.)
+If you need to use `byebug` run the server in deamon mode and the attach to the container running the app
 
-* Deployment instructions
-
-* ...
+```bash
+docker-compose up -d app && docker attach simplefoods_app_1
+```
