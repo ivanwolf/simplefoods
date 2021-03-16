@@ -1,5 +1,5 @@
 <%= simple_form_for @workday_product do |f| %>
-<%= f.association :product, type: :select, disabled: @workday_product.persisted? %>
+<%= f.association :product, type: :select, disabled: @workday_product.persisted?, prompt: "-- Selecciona un producto --" %>
 <%= f.input :stock, type: :integer %>
 <%= f.input :delivery_time, as: :time, html5: true %>
 <%= f.hidden_field :workday_id %>
