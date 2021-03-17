@@ -13,10 +13,10 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="min-h-full">
+  <body class="flex min-h-full">
 
-    <div class="bg-gray-100 w-full h-full flex items-center justify-center p-32">
-      <div class="w-60 bg-white rounded-lg border p-4 mb-32">
+    <div class="bg-gray-100 w-full flex items-center justify-center">
+      <div class="w-96 card mb-32">
         <%= yield %>
       </div>
     </div>
