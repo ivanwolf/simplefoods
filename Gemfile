@@ -15,6 +15,9 @@ gem 'rails_admin', '~> 2.0'
 # Easy forms
 gem 'simple_form'
 
+# Country codes
+gem 'countries'
+
 # Authenticate users
 gem 'devise'
 
