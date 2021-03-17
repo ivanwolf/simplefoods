@@ -361,6 +361,38 @@ ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
 
 
 --
+-- Name: phone_numbers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.phone_numbers (
+    id bigint NOT NULL,
+    country_code integer,
+    number integer,
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL
+);
+
+
+--
+-- Name: phone_numbers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.phone_numbers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: phone_numbers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.phone_numbers_id_seq OWNED BY public.phone_numbers.id;
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -419,7 +451,9 @@ CREATE TABLE public.stores (
     name character varying,
     slug character varying,
     created_at timestamp(6) with time zone NOT NULL,
-    updated_at timestamp(6) with time zone NOT NULL
+    updated_at timestamp(6) with time zone NOT NULL,
+    phone_number_id bigint NOT NULL,
+    email character varying NOT NULL
 );
 
 
@@ -662,6 +696,13 @@ ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.order
 
 
 --
+-- Name: phone_numbers id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.phone_numbers ALTER COLUMN id SET DEFAULT nextval('public.phone_numbers_id_seq'::regclass);
+
+
+--
 -- Name: products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -781,6 +822,14 @@ ALTER TABLE ONLY public.order_products
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: phone_numbers phone_numbers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.phone_numbers
+    ADD CONSTRAINT phone_numbers_pkey PRIMARY KEY (id);
 
 
 --
@@ -949,6 +998,13 @@ COMMENT ON INDEX public.index_products_on_name IS 'No two products should have t
 --
 
 CREATE INDEX index_products_on_store_id ON public.products USING btree (store_id);
+
+
+--
+-- Name: index_stores_on_phone_number_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stores_on_phone_number_id ON public.stores USING btree (phone_number_id);
 
 
 --
@@ -1148,6 +1204,14 @@ ALTER TABLE ONLY public.transfer_data
 
 
 --
+-- Name: stores fk_rails_e35b0ef272; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stores
+    ADD CONSTRAINT fk_rails_e35b0ef272 FOREIGN KEY (phone_number_id) REFERENCES public.phone_numbers(id);
+
+
+--
 -- Name: workday_products fk_rails_f0b0bdc7b7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1192,6 +1256,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210313175321'),
 ('20210313225833'),
 ('20210315020819'),
-('20210316162504');
+('20210316162504'),
+('20210317191119');
 
 
