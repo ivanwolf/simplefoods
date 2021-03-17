@@ -10,6 +10,9 @@ es:
         create: "Crear %{model}"
   activerecord:
     models:
+      store:
+        one: "Tienda"
+        other: "Tiendas"
       product:
         one: "Producto"
         other: "Productos"

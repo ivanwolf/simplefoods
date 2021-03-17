@@ -1,0 +1,8 @@
+<%= title_with_action_button "Mi tienda", "Modificar datos", edit_store_path(@store)%>
+
+<div class="card">
+  <label class="text-sm text-gray-600">Nombre de la tienda</label>
+  <p class="text-xl"><%= @store.name %></p>
+  <label class="text-sm text-gray-600">Enlace</label>
+  <p class="text-xl"><%= URI.join(root_url, @store.slug).to_s %></p>
+</div>
