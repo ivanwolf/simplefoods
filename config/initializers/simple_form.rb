@@ -52,8 +52,8 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     ## Inputs
-    b.use :label_input
-    # b.use :input, class: '', error_class: 'is-invalid', valid_class: 'is-valid'
+    b.use :label
+    b.use :input, class: 'h-10 px-4 border rounded-md w-full', error_class: 'is-invalid', valid_class: 'is-valid'
     b.use :hint,  wrap_with: { tag: :span, class: "text-sm text-gray-600" }
     b.use :error, wrap_with: { tag: :span, class: "text-sm text-red-400" }
 
@@ -72,9 +72,6 @@ SimpleForm.setup do |config|
   #   inline: input + label
   #   nested: label > input
   config.boolean_style = :nested
-
-  # Default class for buttons
-  config.button_class = 'btn'
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
@@ -173,6 +170,6 @@ SimpleForm.setup do |config|
   # Defines validation classes to the input_field. By default it's nil.
   # config.input_field_valid_class = 'is-valid'
   config.input_field_error_class = 'border-red-400'
-  config.input_class = 'h-10 px-4 border rounded-md w-full'
+  config.button_class = 'px-4 py-2 rounded-md bg-yellow-500 text-white'
 
 end
