@@ -52,6 +52,12 @@ es:
         delivery_time: "Hora de entrega"
       order_product:
         quantity: "Cantidad"
+      store:
+        name: "Nombre de la tienda"
+        email: "Correo electrónico"
+      phone_number:
+        country_code: "Cod."
+        number: "Teléfono"
       order:
         delivery_comment: "Comentarios para la entrega"
       customer:

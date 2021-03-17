@@ -1,6 +1,13 @@
  <%= simple_form_for @store do |f| %>
  <%= f.input :name %>
  <%= f.input :slug %>
+ <%= f.input :email %>
+ <%= f.simple_fields_for :phone_number do |phone_number_fields| %>
+ <div class="grid gap-1 grid-cols-12">
+   <%= phone_number_fields.input :country_code, collection: country_codes_collection, wrapper_html: { class: "col-span-4"} %>
+   <%= phone_number_fields.input :number, wrapper_html: { class: "col-span-8"}, hint: "Ej. 912341234" %>
+ </div>
+ <% end %>
  <label>Logo</label>
  <%= f.file_field :logo, class: "mb-2" %>
 

@@ -19,4 +19,10 @@ module ApplicationHelper
   def title_with_action_button(title, label, path)
     render partial: "components/title_with_action_button", locals: { title: title, label: label, path: path}
   end
+
+  def country_codes_collection
+    ISO3166::Country.all.map do |c|
+      ["+#{c.country_code}", c.country_code]
+    end.uniq.sort
+  end
 end

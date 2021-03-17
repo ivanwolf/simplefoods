@@ -23,7 +23,8 @@ class StoresController < ApplicationController
 
   def store_params
     params.require(:store).permit(
-      %i[name slug logo]
+      %i[name slug logo],
+      phone_number_attributes: %i[country_code number]
     )
   end
 end

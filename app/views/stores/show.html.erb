@@ -1,11 +1,17 @@
 <%= title_with_action_button @store.name, "Modificar datos", edit_store_path(@store)%>
 
-<div class="card">
-
+<div class="card mb-4">
   <label class="text-sm text-gray-600">Teléfono de contacto</label>
   <p class="text-xl"><%= phone_formatter(@store.phone_number) %></p>
   <label class="text-sm text-gray-600">Correo electrónico de contacto</label>
   <p class="text-xl"><%= @store.email %></p>
   <label class="text-sm text-gray-600">Enlace</label>
   <p class="text-xl"><%= URI.join(root_url, @store.slug).to_s %></p>
+</div>
+
+<h2 class="text-2xl">Datos bancarios</h2>
+<h3 class="text-gray-600 mb-4">Esta información se motrará al final de la compra para que tus clientes paguen</h3>
+
+<div class="card">
+
 </div>
