@@ -1,0 +1,8 @@
+ <%= simple_form_for @store do |f| %>
+ <%= f.input :name %>
+ <%= f.input :slug %>
+ <label>Logo</label>
+ <%= f.file_field :logo, class: "mb-2" %>
+
+ <%= f.button :submit %>
+ <% end %>

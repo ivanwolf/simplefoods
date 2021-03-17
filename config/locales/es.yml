@@ -70,6 +70,9 @@ es:
         workday_product:
           actions:
             update: "Producto modificado correctamente"
+        store:
+          actions:
+            update: "Tienda actualizada correctamente"
         product:
           actions:
             destroy: "Producto eliminado con correctamente"
