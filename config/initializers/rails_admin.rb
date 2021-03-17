@@ -4,7 +4,7 @@ require "rails_ext/active_record_datetime_uses_timestamptz"
 
 
 RailsAdmin.config do |config|
-  class RailsAdmin::Config::Fields::Types::Datetime < RailsAdmin::Config::Fields::Base
+  class RailsAdmin::Config::Fields::Types::Timestamptz < RailsAdmin::Config::Fields::Base
     RailsAdmin::Config::Fields::Types::register(self)
   end
 
