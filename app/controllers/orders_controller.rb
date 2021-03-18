@@ -4,16 +4,6 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
   end
-  
-  def new
-    @order = Order.new
-    @order.build_customer
-    @workday = Workday.includes(:products).find(params[:workday_id])
-
-    @workday.products.each do |product|
-      @order.order_products << OrderProduct.new(product: product, quantity: 0)
-    end
-  end
 
   def create
     @order = Order.new(order_params)

@@ -18,4 +18,16 @@ class Workday < ApplicationRecord
   def title(mobile = false)
     I18n.l(work_date, format: mobile ? "%a %d, %B" : "%A %d de %B")
   end
+
+  def to_slug
+    I18n.l(work_date, format: "%d-%B")
+  end
+
+  def self.by_slug(store_slug, date_string)
+    date = Date.strptime(date_string, "%d-%b")
+
+    Workday.joins(:store)
+           .where(stores: { slug: store_slug})
+           .where(work_date: date)
+  end
 end

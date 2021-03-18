@@ -12,6 +12,10 @@ module ApplicationHelper
     )
   end
 
+  def new_friendly_order_url(workday)
+    root_url +  workday.store.slug + "/" + workday.to_slug
+  end
+
   def title_with_back_button(title, subtitle = "")
     render partial: "components/title_with_back_button", locals: { title: title, subtitle: subtitle }
   end
