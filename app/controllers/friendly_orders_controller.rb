@@ -14,4 +14,30 @@ class FriendlyOrdersController < ApplicationController
       @order.order_products << OrderProduct.new(product: product, quantity: 0)
     end
   end
+
+  def create
+    @order = Order.new(order_params)
+    if @order.valid?
+      @order.order_products = @order.order_products.select { |op| op.quantity.positive? }
+      @order.save
+      redirect_to @order
+    else
+      @workday = @order.workday
+      render :new
+    end
+  end
+
+  private
+
+  def find_current_tenant
+    set_current_tenant(Store.find_by_slug(params[:slug]))
+  end
+
+  def order_params
+    params.require(:order).permit(
+      :workday_id, :delivery_comment,
+      order_products_attributes: [:product_id, :quantity],
+      customer_attributes: [:name, :last_name, :phone_number, :address, :apartment]
+    )
+  end
 end

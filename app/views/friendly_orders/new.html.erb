@@ -4,13 +4,13 @@ Mano morena - Comida casera
 <% content_for :meta_description do %>
 Haz tu pedido para el <%= l(@workday.work_date, format: "%A %-d de %B") %>. Llevamos el plato a la puerta de tu casa.
 <% end %>
-<div class="md:px-16 py-16 px-8 flex flex-col items-center">
+<div class="md:px-16 py-16 px-0 flex flex-col items-center">
 
   <h1 class="text-2xl text-center md:text-3xl">Vecino, ¿qué quieres pedir?</h1>
   <h2 class="text-lg md:text-xl text-gray-600 mb-4"><%= l(@workday.work_date, format: "%A %-d de %B").capitalize %></h2>
 
   <div class="card md:w-96">
-    <%= simple_form_for @order do |f| %>
+    <%= simple_form_for @order, url: friendly_orders_path do |f| %>
 
     <%= f.hidden_field :workday_id, value: @workday.id %>
     <h2 class="text-lg">Datos de contacto</h2>

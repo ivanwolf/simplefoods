@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   resources :orders, only: %i[create show destroy]
   resources :stores, only: %i[show edit update]
   
-  get '/:slug/:date', to: 'friendly_orders#new', constraints: lambda { |req| Workday.by_slug(req.params[:slug], req.params[:date]).any? }
+  get '/:slug/:date', to: 'friendly_orders#new', as: :friendly_orders, constraints: lambda { |req| Workday.by_slug(req.params[:slug], req.params[:date]).any? }
+  post '/:slug/:date', to: 'friendly_orders#create', constraints: lambda { |req| Workday.by_slug(req.params[:slug], req.params[:date]).any? }
 end
