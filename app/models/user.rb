@@ -1,7 +1,22 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :bigint           not null, primary key
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :timestamptz
+#  remember_created_at    :timestamptz
+#  created_at             :timestamptz      not null
+#  updated_at             :timestamptz      not null
+#  store_id               :bigint
+#  is_admin               :boolean          default(FALSE)
+#
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   belongs_to :store, optional: true
 end

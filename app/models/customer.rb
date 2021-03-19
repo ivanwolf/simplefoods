@@ -3,12 +3,14 @@
 # Table name: customers
 #
 #  id           :bigint           not null, primary key
-#  name         :text             not null
-#  last_name    :text             not null
-#  phone_number :text             not null
+#  name         :string           not null
+#  last_name    :string           not null
+#  phone_number :string           not null
 #  apartment    :integer          not null
 #  created_at   :timestamptz      not null
 #  updated_at   :timestamptz      not null
+#  address      :string           not null
+#  store_id     :bigint           not null
 #
 class Customer < ApplicationRecord
   acts_as_tenant :store

@@ -6,6 +6,7 @@
 #  work_date  :date             not null
 #  created_at :timestamptz      not null
 #  updated_at :timestamptz      not null
+#  store_id   :bigint           not null
 #
 class Workday < ApplicationRecord
   acts_as_tenant :store

@@ -3,10 +3,11 @@
 # Table name: products
 #
 #  id         :bigint           not null, primary key
-#  name       :text             not null
+#  name       :string           not null
 #  price      :integer          not null
 #  created_at :timestamptz      not null
 #  updated_at :timestamptz      not null
+#  store_id   :bigint           not null
 #
 class Product < ApplicationRecord
   acts_as_tenant :store

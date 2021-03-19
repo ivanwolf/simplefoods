@@ -2,12 +2,14 @@
 #
 # Table name: orders
 #
-#  id          :bigint           not null, primary key
-#  paid        :boolean          default(FALSE)
-#  customer_id :bigint           not null
-#  workday_id  :bigint           not null
-#  created_at  :timestamptz      not null
-#  updated_at  :timestamptz      not null
+#  id               :bigint           not null, primary key
+#  paid             :boolean          default(FALSE)
+#  customer_id      :bigint           not null
+#  workday_id       :bigint           not null
+#  delivery_comment :string
+#  created_at       :timestamptz      not null
+#  updated_at       :timestamptz      not null
+#  store_id         :bigint           not null
 #
 class Order < ApplicationRecord
   acts_as_tenant :store

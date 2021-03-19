@@ -8,6 +8,7 @@
 #  quantity   :integer          not null
 #  created_at :timestamptz      not null
 #  updated_at :timestamptz      not null
+#  store_id   :bigint           not null
 #
 class OrderProduct < ApplicationRecord
   acts_as_tenant :store
