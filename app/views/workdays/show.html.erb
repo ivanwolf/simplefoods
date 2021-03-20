@@ -71,7 +71,7 @@
             <th class="text-right">Productos</th>
             <th class="text-right">Subtotal</th>
             <th class="text-right">Total</th>
-            <th class="text-right">Pagado</th>
+            <th class="text-right">Comentario</th>
             <th class="text-right pr-4">Acciones </th>
           </tr>
         </thead>
@@ -127,7 +127,7 @@
               <% end %>
             </td>
             <td class="text-right"><%= currency_formatter(order.total_price) %></td>
-            <td class="text-right"><%= order.paid? %></td>
+            <td class="text-right"><%= order.delivery_comment %></td>
             <td class="text-right pr-4">
               <%= link_to "Eliminar", order, class: "text-red-400",  method: :delete, data: {confirm: "¿Estás seguro de eliminar el pedido?" }%>
             </td>
