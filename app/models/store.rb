@@ -3,8 +3,8 @@
 # Table name: stores
 #
 #  id              :bigint           not null, primary key
-#  name            :string
-#  slug            :string
+#  name            :string           not null
+#  slug            :string           not null
 #  created_at      :timestamptz      not null
 #  updated_at      :timestamptz      not null
 #  phone_number_id :bigint           not null
@@ -16,6 +16,7 @@ class Store < ApplicationRecord
 
   accepts_nested_attributes_for :phone_number
 
-  validates :name, :slug, presence: true, allow_blank: false
+  validates :name, presence: true, allow_blank: false
 
+  
 end

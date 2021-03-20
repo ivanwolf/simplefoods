@@ -448,8 +448,8 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.stores (
     id bigint NOT NULL,
-    name character varying,
-    slug character varying,
+    name character varying NOT NULL,
+    slug character varying NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
     phone_number_id bigint NOT NULL,
@@ -1257,6 +1257,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210313225833'),
 ('20210315020819'),
 ('20210316162504'),
-('20210317191119');
+('20210317191119'),
+('20210319162352');
 
 
