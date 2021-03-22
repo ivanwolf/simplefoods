@@ -18,6 +18,9 @@ gem 'simple_form'
 # Country codes
 gem 'countries'
 
+# Paginate AR models
+gem 'kaminari'
+
 # Authenticate users
 gem 'devise'
 

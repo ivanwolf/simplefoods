@@ -325,6 +325,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   image_processing
+  kaminari
   pg (~> 1.1)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
