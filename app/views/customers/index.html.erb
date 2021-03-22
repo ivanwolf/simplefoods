@@ -14,8 +14,8 @@
           </tr>
         </thead>
         <tbody>
-          <% @customers.each_with_index do |customer, index| %>
-          <tr class="<%= index < @customers.size - 1 ? "border-b" : "" %> h-14">
+          <% @customers.each do |customer| %>
+          <tr class="border-b h-14">
             <td class="text-left"><%= customer.full_name %></td>
             <td class="text-right"><%= customer.phone_number %></td>
             <td class="text-right"><%= customer.full_address %></td>
@@ -29,6 +29,9 @@
           <% end %>
         </tbody>
       </table>
+      <div class="flex justify-end items-end h-10">
+        <%= paginate @customers %>
+      </div>
     </div>
   </div>
 </div>
