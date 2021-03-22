@@ -92,8 +92,8 @@ ActsAsTenant.with_tenant(manomorena) do
     Customer.all.sample(3).each do |customer|
       order = Order.create(customer: customer, workday: workday)
 
-      products.sample(2).each do |product|
-        order.order_products << OrderProduct.create(product: product, quantity: quantities.sample)
+      workday.workday_products.sample(2).each do |workday_product|
+        order.order_products << OrderProduct.create(workday_product: workday_product, quantity: quantities.sample)
       end
 
       order.save
