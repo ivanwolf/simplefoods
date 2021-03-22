@@ -26,15 +26,15 @@
           </tr>
         </thead>
         <tbody>
-          <% @workday.workday_products.each_with_index do |wd_product, index| %>
-          <tr class="<%= index < @workday.workday_products.size - 1 ? "border-b" : "" %> h-14">
+          <% @workday_products_table.rows.each do |wd_product, units_taken| %>
+          <tr class="border-b h-14">
             <td class="md:pl-4">
               <%= image_tag wd_product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg" %>
             </td>
             <td class="text-left"><%= wd_product.name %></td>
             <td class="text-right"><%= l(wd_product.delivery_time, format: "%H:%M") %></td>
             <td class="text-right"><%= wd_product.stock %></td>
-            <td class="text-right"><%= OrderCalculator.units_taken(@workday, wd_product.product) %></td>
+            <td class="text-right"><%= units_taken %></td>
             <td class="text-right pr-4">
               <div class="flex flex-col justify-center">
                 <%= link_to "Modificar", edit_workday_product_path(wd_product), class: "text-blue-500 text-sm" %>
@@ -80,27 +80,27 @@
             <td class="text-left md:pl-4"></td>
             <td class="text-left font-bold">Totales</td>
             <td class="text-right">
-              <% @workday.products.each do |product| %>
+              <% @workday_products_table.rows.each do |wd_product, units_taken| %>
               <div>
-                <%= OrderCalculator.units_taken(@workday, product)  %> x <%= product.name %>
+                <%= units_taken  %> x <%= wd_product.name %>
               </div>
               <% end %>
             </td>
             <td class="text-right">
-              <% @workday.products.each do |product| %>
+              <% @workday_products_table.rows.each do |wd_product, units_taken, revenue| %>
               <div>
-                <%= currency_formatter(OrderCalculator.revenue_at(@workday, product))  %>
+                <%= currency_formatter(revenue)  %>
               </div>
               <% end %>
             </td>
             <td class="text-right">
-              <%= currency_formatter(OrderCalculator.revenue_at(@workday))  %>
+              <%= currency_formatter(@workday_products_table.rows.map(&:last).sum)  %>
             </td>
             <td></td>
             <td></td>
 
           </tr>
-          <% @workday.orders.each_with_index do |order, index| %>
+          <% @workday.orders.includes(:order_products).each_with_index do |order, index| %>
           <tr class="<%= index < @workday.orders.size - 1 ? "border-b" : "" %> h-14">
             <td class="text-left md:pl-4"># <%= order.id %></td>
             <td class="text-left">
