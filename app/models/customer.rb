@@ -15,6 +15,7 @@
 class Customer < ApplicationRecord
   acts_as_tenant :store
 
+  has_many :orders
   validates :name, :last_name, :phone_number, :apartment, :address, presence: true
 
   def full_name
