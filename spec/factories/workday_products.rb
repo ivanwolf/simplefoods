@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :workday_product do
-    name { Faker::Food.dish }
-    price { Faker::Number.between(from: 1000 to: 20000) }
     product
     workday
+    stock { Faker::Number.between(from: 1, to: 30) }
+    delivery_time { Time.zone.now }
   end
 end
