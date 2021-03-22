@@ -13,8 +13,20 @@ user = User.create(email: "admin@sfood.cl")
 user.password = "123456"
 user.save!
 
-manomorena = Store.create(name: "Mano Morena", slug: "manomorena")
-patagonia_sabores = Store.create(name: "Patagonia Sabores", slug: "patagoniasabores")
+
+manomorena = Store.create(
+  name: "Mano Morena",
+  slug: "manomorena",
+  email: "contacto@manomorena.cl",
+  phone_number_attributes: { country_code: 56, number: 948454110 }
+)
+
+patagonia_sabores = Store.create(
+  name: "Patagonia Sabores",
+  slug: "patagoniasabores",
+  email: "contacto@patagoniasabores.cl",
+  phone_number_attributes: { country_code: 56, number: 948454110 }
+)
 
 user = User.create(email: "admin@manomorena.cl", store_id: manomorena.id)
 user.password = "123456"

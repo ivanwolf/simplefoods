@@ -17,6 +17,4 @@ class Store < ApplicationRecord
   accepts_nested_attributes_for :phone_number
 
   validates :name, presence: true, allow_blank: false
-
-  
 end
