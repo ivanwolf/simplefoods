@@ -1,9 +1,9 @@
-class CustomersTableData
+class CustomersTable
   attr_accessor :rows, :order_counts
 
   def initialize(page)
     @scope = Customer.left_outer_joins(:orders)
-                     .group(:customer_id)
+                     .group("customers.id")
                      .order("count_orders_id DESC")
                      .page(page)
 
