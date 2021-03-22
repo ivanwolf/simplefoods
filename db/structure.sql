@@ -282,12 +282,13 @@ ALTER SEQUENCE public.customers_id_seq OWNED BY public.customers.id;
 
 CREATE TABLE public.order_products (
     id bigint NOT NULL,
-    product_id bigint NOT NULL,
+    product_id bigint,
     order_id bigint NOT NULL,
     quantity integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
     store_id bigint NOT NULL,
+    workday_product_id bigint,
     CONSTRAINT queantity_must_be_positive CHECK ((quantity > 0))
 );
 
@@ -959,6 +960,13 @@ CREATE INDEX index_order_products_on_store_id ON public.order_products USING btr
 
 
 --
+-- Name: index_order_products_on_workday_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_order_products_on_workday_product_id ON public.order_products USING btree (workday_product_id);
+
+
+--
 -- Name: index_orders_on_customer_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1244,6 +1252,14 @@ ALTER TABLE ONLY public.workdays
 
 
 --
+-- Name: order_products fk_rails_fd3eb80a9d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT fk_rails_fd3eb80a9d FOREIGN KEY (workday_product_id) REFERENCES public.workday_products(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1258,6 +1274,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210315020819'),
 ('20210316162504'),
 ('20210317191119'),
-('20210319162352');
+('20210319162352'),
+('20210322194140');
 
 
