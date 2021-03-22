@@ -14,7 +14,7 @@ class OrderProduct < ApplicationRecord
   acts_as_tenant :store
 
   belongs_to :order
-  belongs_to :workday_product
+  belongs_to :workday_product, optional: true
 
   validates :quantity, presence: true
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
