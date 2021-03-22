@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @table_data.rows.each do |customer, order_count| %>
+          <% @table.rows.each do |customer, order_count| %>
           <tr class="border-b h-14">
             <td class="text-left"><%= customer.full_name %></td>
             <td class="text-right"><%= customer.phone_number %></td>
