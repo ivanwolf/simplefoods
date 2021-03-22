@@ -30,18 +30,18 @@ Haz tu pedido para el <%= l(@workday.work_date, format: "%A %-d de %B") %>. Llev
     <div class="flex w-full items-center mb-4">
       <div class="w-3/4 flex items-center">
 
-          <% if order_product_fields.object.product.cover_photo.attached?%>
-          <%= image_tag order_product_fields.object.product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg mr-2" %>
+          <% if order_product_fields.object&.workday_product&.cover_photo&.attached?%>
+          <%= image_tag order_product_fields.object.workday_product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg mr-2" %>
           <% end %>
 
         <div>
-          <div><%= order_product_fields.object.product.name %></div>
-          <div class="text-gray-600"><%= currency_formatter(order_product_fields.object.product.price) %> c/u</div>
+          <div><%= order_product_fields.object&.workday_product&.name %></div>
+          <div class="text-gray-600"><%= currency_formatter(order_product_fields.object&.workday_product&.price) %> c/u</div>
         </div>
       </div>
       <div class="w-1/4">
         <%= order_product_fields.input :quantity %>
-        <%= order_product_fields.hidden_field :product_id %>
+        <%= order_product_fields.hidden_field :workday_product_id %>
       </div>
     </div>
     <% end %>

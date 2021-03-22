@@ -6,7 +6,7 @@ class WorkdaysController < ApplicationController
   end
 
   def show
-    @workday = Workday.includes(:products).find(params[:id])
+    @workday = Workday.includes(:workday_products).find(params[:id])
     @workday_products_table = WorkdayProductsTable.new @workday.id
   end
 

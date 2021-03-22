@@ -8,15 +8,16 @@ class FriendlyOrdersController < ApplicationController
   def new
     @order = Order.new
     @order.build_customer
-    @workday = Workday.by_slug(params[:slug], params[:date]).includes(:products).first
+    @workday = Workday.by_slug(params[:slug], params[:date]).first
 
-    @workday.products.each do |product|
-      @order.order_products << OrderProduct.new(product: product, quantity: 0)
+    @workday.workday_products.each do |workday_product|
+      @order.order_products << OrderProduct.new(workday_product: workday_product, quantity: 0)
     end
   end
 
   def create
     @order = Order.new(order_params)
+    byebug
     if @order.valid?
       @order.order_products = @order.order_products.select { |op| op.quantity.positive? }
       @order.save
@@ -36,7 +37,7 @@ class FriendlyOrdersController < ApplicationController
   def order_params
     params.require(:order).permit(
       :workday_id, :delivery_comment,
-      order_products_attributes: [:product_id, :quantity],
+      order_products_attributes: [:workday_product_id, :quantity],
       customer_attributes: [:name, :last_name, :phone_number, :address, :apartment]
     )
   end

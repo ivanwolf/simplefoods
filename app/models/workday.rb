@@ -12,8 +12,6 @@ class Workday < ApplicationRecord
   acts_as_tenant :store
 
   has_many :workday_products
-  has_many :products, through: :workday_products
-
   has_many :orders
 
   def title(mobile = false)
@@ -27,8 +25,6 @@ class Workday < ApplicationRecord
   def self.by_slug(store_slug, date_string)
     date = Date.strptime(date_string, "%d-%b")
 
-    Workday.joins(:store)
-           .where(stores: { slug: store_slug})
-           .where(work_date: date)
+    Workday.joins(:store).where(stores: { slug: store_slug}).where(work_date: date)
   end
 end
