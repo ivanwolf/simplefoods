@@ -20,4 +20,8 @@ class Customer < ApplicationRecord
   def full_name
     "#{name} #{last_name}"
   end
+
+  def full_address
+   "#{address} D. #{apartment}"
+  end
 end

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :workdays, only: %i[index new create show destroy]
   resources :workday_products, only: %i[new create edit update destroy]
   resources :orders, only: %i[create show destroy]
+  resources :customers, only: %i[index]
   resources :stores, only: %i[show edit update]
   
   get '/:slug/:date', to: 'friendly_orders#new', as: :friendly_orders, constraints: lambda { |req| Workday.by_slug(req.params[:slug], req.params[:date]).any? }

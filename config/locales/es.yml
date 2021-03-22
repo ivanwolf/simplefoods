@@ -19,6 +19,9 @@ es:
       workday:
         one: "Jornada"
         other: "Jornadas"
+      customer:
+        one: "Cliente"
+        other: "Clientes"
       user:
         one: "Usuario"
         other: "Usuarios"
