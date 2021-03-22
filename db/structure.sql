@@ -282,13 +282,12 @@ ALTER SEQUENCE public.customers_id_seq OWNED BY public.customers.id;
 
 CREATE TABLE public.order_products (
     id bigint NOT NULL,
-    product_id bigint,
     order_id bigint NOT NULL,
     quantity integer NOT NULL,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
     store_id bigint NOT NULL,
-    workday_product_id bigint,
+    workday_product_id bigint NOT NULL,
     CONSTRAINT queantity_must_be_positive CHECK ((quantity > 0))
 );
 
@@ -932,27 +931,6 @@ CREATE INDEX index_order_products_on_order_id ON public.order_products USING btr
 
 
 --
--- Name: index_order_products_on_order_id_and_product_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_order_products_on_order_id_and_product_id ON public.order_products USING btree (order_id, product_id);
-
-
---
--- Name: INDEX index_order_products_on_order_id_and_product_id; Type: COMMENT; Schema: public; Owner: -
---
-
-COMMENT ON INDEX public.index_order_products_on_order_id_and_product_id IS 'No order can have two of the same product';
-
-
---
--- Name: index_order_products_on_product_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_order_products_on_product_id ON public.order_products USING btree (product_id);
-
-
---
 -- Name: index_order_products_on_store_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1156,14 +1134,6 @@ ALTER TABLE ONLY public.products
 
 
 --
--- Name: order_products fk_rails_96c0709f78; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.order_products
-    ADD CONSTRAINT fk_rails_96c0709f78 FOREIGN KEY (product_id) REFERENCES public.products(id);
-
-
---
 -- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1275,6 +1245,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210316162504'),
 ('20210317191119'),
 ('20210319162352'),
-('20210322194140');
+('20210322194140'),
+('20210322232256');
 
 
