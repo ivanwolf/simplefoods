@@ -14,18 +14,14 @@ class OrderProduct < ApplicationRecord
   acts_as_tenant :store
 
   belongs_to :order
-  belongs_to :product
+  belongs_to :workday_product
 
   validates :quantity, presence: true
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
 
-  delegate :name, :cover_photo, to: :product
+  delegate :name, :cover_photo, :delivery_time, to: :workday_product
 
   def price
-    product.price * quantity
-  end
-
-  def delivery_time
-    WorkdayProduct.find_by(product_id: product_id, workday_id: order.workday_id ).delivery_time
+    workday_product.price * quantity
   end
 end
