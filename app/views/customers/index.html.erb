@@ -22,6 +22,7 @@
             <td class="text-right"><%= order_count %></td>
             <td class="text-right pr-4">
               <div class="flex flex-col justify-center">
+                <%= link_to "Eliminar", customer, class: "text-red-500 text-sm", method: :delete, data: {confirm: "¿Estás seguro de que quieres eliminar el cliente?"}%>
 
               </div>
             </td>

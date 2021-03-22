@@ -42,7 +42,6 @@ class ProductsController < ApplicationController
     else
       redirect_to products_path, flash: { error: I18n.t("activerecord.errors.models.product.actions.destroy") }
     end
-
   end
 
   private

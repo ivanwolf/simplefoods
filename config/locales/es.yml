@@ -82,6 +82,9 @@ es:
         store:
           actions:
             update: "Tienda actualizada correctamente"
+        customer:
+          actions:
+            destroy: "Cliente eliminado con correctamente"
         product:
           actions:
             destroy: "Producto eliminado con correctamente"
@@ -100,6 +103,9 @@ es:
               blank: "Campo requerido"
             phone_number:
               blank: "Campo requerido"
+        customer:
+          actions:
+            destroy: "No se pudo borrar el cliente"
         product:
           actions:
             destroy: "No se puede borrar el producto. Hay órdenes o stock asociados."
