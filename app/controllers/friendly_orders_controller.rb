@@ -17,9 +17,9 @@ class FriendlyOrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    byebug
     if @order.valid?
       @order.order_products = @order.order_products.select { |op| op.quantity.positive? }
+      @order.customer = Customer.find_by_phone_number(@order.customer.phone_number) || @order.customer.phone_number
       @order.save
       redirect_to @order
     else
