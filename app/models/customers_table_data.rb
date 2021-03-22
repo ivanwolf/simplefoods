@@ -2,11 +2,12 @@ class CustomersTableData
   attr_accessor :rows, :order_counts
 
   def initialize(page)
-    @scope = Customer.page(page)
-    @order_counts = @scope.left_outer_joins(:orders)
-                         .group(:customer_id)
-                         .order("count_orders_id DESC")
-                         .count("orders.id")
+    @scope = Customer.left_outer_joins(:orders)
+                     .group(:customer_id)
+                     .order("count_orders_id DESC")
+                     .page(page)
+
+    @order_counts = @scope.count("orders.id")
 
     @rows = Customer.find(@order_counts.keys).map do |customer|
       [customer, @order_counts[customer.id]]
