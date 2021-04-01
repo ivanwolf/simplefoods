@@ -19,7 +19,7 @@ class Workday < ApplicationRecord
   end
 
   def to_slug
-    I18n.l(work_date, format: "%d-%B")
+    work_date.strftime("%d-%b").downcase
   end
 
   def self.by_slug(store_slug, date_string)
