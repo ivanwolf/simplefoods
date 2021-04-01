@@ -21,6 +21,7 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 ADD Gemfile* $APP_HOME/
+RUN bundle update 
 RUN bundle install 
 RUN bundle lock --add-platform x86_64-linux
 
