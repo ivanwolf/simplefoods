@@ -17,7 +17,9 @@
           <% @products.each_with_index do |product, index| %>
           <tr class="<%= index < @products.size - 1 ? "border-b" : "" %> h-14">
             <td class="md:pl-4">
+              <% if product.cover_photo.attached? %>
               <%= image_tag product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg" %>
+              <% end %>
             </td>
             <td class="text-left"><%= product.name %></td>
             <td class="text-right"><%= currency_formatter(product.price) %></td>
