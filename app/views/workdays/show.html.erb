@@ -29,7 +29,9 @@
           <% @workday_products_table.rows.each do |wd_product, units_taken| %>
           <tr class="border-b h-14">
             <td class="md:pl-4">
+              <% if wd_product.cover_photo.attached? %>
               <%= image_tag wd_product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg" %>
+              <% end %>
             </td>
             <td class="text-left"><%= wd_product.name %></td>
             <td class="text-right"><%= l(wd_product.delivery_time, format: "%H:%M") %></td>
