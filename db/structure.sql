@@ -287,8 +287,9 @@ CREATE TABLE public.order_products (
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
     store_id bigint NOT NULL,
-    workday_product_id bigint NOT NULL,
+    workday_product_id bigint,
     unit_price integer,
+    product_id bigint,
     CONSTRAINT queantity_must_be_positive CHECK ((quantity > 0))
 );
 
@@ -992,6 +993,13 @@ CREATE INDEX index_order_products_on_order_id ON public.order_products USING btr
 
 
 --
+-- Name: index_order_products_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_order_products_on_product_id ON public.order_products USING btree (product_id);
+
+
+--
 -- Name: index_order_products_on_store_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1213,6 +1221,14 @@ ALTER TABLE ONLY public.orders
 
 ALTER TABLE ONLY public.products
     ADD CONSTRAINT fk_rails_5cf8ff66a6 FOREIGN KEY (store_id) REFERENCES public.stores(id);
+
+
+--
+-- Name: order_products fk_rails_96c0709f78; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT fk_rails_96c0709f78 FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --

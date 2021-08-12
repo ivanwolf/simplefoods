@@ -6,11 +6,13 @@ class AddPublishedToProduct < ActiveRecord::Migration[6.1]
     add_index :products, :discarded_at
 
     change_column_null :orders, :workday_id, true
+    change_column_null :order_products, :workday_product_id, true
 
     add_column :orders, :paid_at, :datetime
     add_column :orders, :amount_to_pay, :integer
 
     add_column :order_products, :unit_price, :integer
+    add_reference :order_products, :product, foreign_key: true
 
     create_table :stocks, comment: "Product sotck history" do |t|
       t.references :product, null: false, foreign_key: true
