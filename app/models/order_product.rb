@@ -2,13 +2,14 @@
 #
 # Table name: order_products
 #
-#  id         :bigint           not null, primary key
-#  product_id :bigint           not null
-#  order_id   :bigint           not null
-#  quantity   :integer          not null
-#  created_at :timestamptz      not null
-#  updated_at :timestamptz      not null
-#  store_id   :bigint           not null
+#  id                 :bigint           not null, primary key
+#  order_id           :bigint           not null
+#  quantity           :integer          not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  store_id           :bigint           not null
+#  workday_product_id :bigint           not null
+#  unit_price         :integer
 #
 class OrderProduct < ApplicationRecord
   acts_as_tenant :store

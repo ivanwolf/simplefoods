@@ -6,8 +6,8 @@
 #  product_id    :bigint           not null
 #  workday_id    :bigint           not null
 #  stock         :integer          not null
-#  created_at    :timestamptz      not null
-#  updated_at    :timestamptz      not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #  delivery_time :time
 #  store_id      :bigint           not null
 #

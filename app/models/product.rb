@@ -2,15 +2,18 @@
 #
 # Table name: products
 #
-#  id         :bigint           not null, primary key
-#  name       :string           not null
-#  price      :integer          not null
-#  created_at :timestamptz      not null
-#  updated_at :timestamptz      not null
-#  store_id   :bigint           not null
+#  id           :bigint           not null, primary key
+#  name         :string           not null
+#  price        :integer          not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  store_id     :bigint           not null
+#  published    :boolean
+#  discarded_at :datetime
 #
 class Product < ApplicationRecord
   acts_as_tenant :store
+  include Discard::Model
 
   has_one_attached :cover_photo
 
