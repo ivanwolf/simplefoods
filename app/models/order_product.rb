@@ -24,7 +24,7 @@ class OrderProduct < ApplicationRecord
   validates :unit_price, presence: true
   validates :unit_price, numericality: { greater_than_or_equal_to: 0 }
 
-  delegate :name, :cover_photo, :delivery_time, to: :workday_product
+  delegate :name, :cover_photo, to: :product
 
   after_initialize :set_unit_price, unless: :persisted?
 
