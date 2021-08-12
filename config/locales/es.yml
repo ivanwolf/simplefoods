@@ -1,4 +1,6 @@
 es:
+  true: ✅
+  false: ❌
   helpers:
     submit:
       workday_product:
@@ -25,6 +27,9 @@ es:
       user:
         one: "Usuario"
         other: "Usuarios"
+      order:
+        one: "Orden"
+        other: "Órdenes"
     attributes:
       user:
         confirmation_sent_at: Confirmación enviada a
@@ -72,6 +77,8 @@ es:
       product:
         name: "Nombre"
         price: "Precio"
+        published: ¿Publicar en la página?
+        has_stock: ¿Hay stock?
       workday:
         work_date: "Fecha"
     messages:

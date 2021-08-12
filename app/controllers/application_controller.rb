@@ -1,11 +1,18 @@
 class ApplicationController < ActionController::Base
-  set_current_tenant_through_filter
+  include SEOHelper
 
+  set_current_tenant_through_filter
   before_action :find_current_tenant
+  helper_method :current_store
+
+  def current_store
+    ActsAsTenant.current_tenant
+  end
+
+  private
+
 
   def find_current_tenant
-    if user_signed_in?
-      set_current_tenant(current_user.store)
-    end
+    set_current_tenant(Store.first)
   end
 end

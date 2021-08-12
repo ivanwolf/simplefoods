@@ -287,7 +287,9 @@ CREATE TABLE public.order_products (
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
     store_id bigint NOT NULL,
-    workday_product_id bigint NOT NULL,
+    workday_product_id bigint,
+    unit_price integer,
+    product_id bigint,
     CONSTRAINT queantity_must_be_positive CHECK ((quantity > 0))
 );
 
@@ -326,11 +328,13 @@ CREATE TABLE public.orders (
     id bigint NOT NULL,
     paid boolean DEFAULT false,
     customer_id bigint NOT NULL,
-    workday_id bigint NOT NULL,
+    workday_id bigint,
     delivery_comment character varying,
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
-    store_id bigint NOT NULL
+    store_id bigint NOT NULL,
+    paid_at timestamp with time zone,
+    amount_to_pay integer
 );
 
 
@@ -403,6 +407,9 @@ CREATE TABLE public.products (
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
     store_id bigint NOT NULL,
+    published boolean DEFAULT true,
+    discarded_at timestamp with time zone,
+    has_stock boolean DEFAULT true,
     CONSTRAINT price_must_be_positive CHECK ((price > 0))
 );
 
@@ -440,6 +447,47 @@ ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
 CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
+
+
+--
+-- Name: stocks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stocks (
+    id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    store_id bigint NOT NULL,
+    quantity integer NOT NULL,
+    unit_price integer NOT NULL,
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE stocks; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.stocks IS 'Product sotck history';
+
+
+--
+-- Name: stocks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stocks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stocks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stocks_id_seq OWNED BY public.stocks.id;
 
 
 --
@@ -710,6 +758,13 @@ ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 
 --
+-- Name: stocks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stocks ALTER COLUMN id SET DEFAULT nextval('public.stocks_id_seq'::regclass);
+
+
+--
 -- Name: stores id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -849,6 +904,14 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: stocks stocks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stocks
+    ADD CONSTRAINT stocks_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: stores stores_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -931,6 +994,13 @@ CREATE INDEX index_order_products_on_order_id ON public.order_products USING btr
 
 
 --
+-- Name: index_order_products_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_order_products_on_product_id ON public.order_products USING btree (product_id);
+
+
+--
 -- Name: index_order_products_on_store_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -966,6 +1036,13 @@ CREATE INDEX index_orders_on_workday_id ON public.orders USING btree (workday_id
 
 
 --
+-- Name: index_products_on_discarded_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_discarded_at ON public.products USING btree (discarded_at);
+
+
+--
 -- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -984,6 +1061,20 @@ COMMENT ON INDEX public.index_products_on_name IS 'No two products should have t
 --
 
 CREATE INDEX index_products_on_store_id ON public.products USING btree (store_id);
+
+
+--
+-- Name: index_stocks_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stocks_on_product_id ON public.stocks USING btree (product_id);
+
+
+--
+-- Name: index_stocks_on_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stocks_on_store_id ON public.stocks USING btree (store_id);
 
 
 --
@@ -1134,6 +1225,14 @@ ALTER TABLE ONLY public.products
 
 
 --
+-- Name: order_products fk_rails_96c0709f78; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT fk_rails_96c0709f78 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
 -- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1166,11 +1265,27 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 
 --
+-- Name: stocks fk_rails_c5d5864634; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stocks
+    ADD CONSTRAINT fk_rails_c5d5864634 FOREIGN KEY (store_id) REFERENCES public.stores(id);
+
+
+--
 -- Name: users fk_rails_c6f326481e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT fk_rails_c6f326481e FOREIGN KEY (store_id) REFERENCES public.stores(id);
+
+
+--
+-- Name: stocks fk_rails_cfc800c26b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stocks
+    ADD CONSTRAINT fk_rails_cfc800c26b FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --
@@ -1246,6 +1361,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210317191119'),
 ('20210319162352'),
 ('20210322194140'),
-('20210322232256');
+('20210322232256'),
+('20210812022125'),
+('20210812052915');
 
 

@@ -4,8 +4,8 @@
 #
 #  id         :bigint           not null, primary key
 #  work_date  :date             not null
-#  created_at :timestamptz      not null
-#  updated_at :timestamptz      not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #  store_id   :bigint           not null
 #
 class Workday < ApplicationRecord

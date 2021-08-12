@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    @products = Product.all
+    @products = Product.all.page(params[:page])
   end
 
   def new
@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(
-      %i[name price cover_photo]
+      %i[name price cover_photo published has_stock]
     )
   end
 end

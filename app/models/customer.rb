@@ -7,8 +7,8 @@
 #  last_name    :string           not null
 #  phone_number :string           not null
 #  apartment    :integer          not null
-#  created_at   :timestamptz      not null
-#  updated_at   :timestamptz      not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #  address      :string           not null
 #  store_id     :bigint           not null
 #

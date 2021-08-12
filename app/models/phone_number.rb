@@ -5,8 +5,8 @@
 #  id           :bigint           not null, primary key
 #  country_code :integer
 #  number       :integer
-#  created_at   :timestamptz      not null
-#  updated_at   :timestamptz      not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 class PhoneNumber < ApplicationRecord
 end

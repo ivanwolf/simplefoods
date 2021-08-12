@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Uncomment this and change the path if necessary to include your own
 # components.
@@ -71,7 +72,10 @@ SimpleForm.setup do |config|
   # Defaults to :nested for bootstrap config.
   #   inline: input + label
   #   nested: label > input
-  config.boolean_style = :nested
+  config.boolean_style = :inline
+
+  # Default class for buttons
+  config.button_class = "button"
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
@@ -91,14 +95,14 @@ SimpleForm.setup do |config|
   # config.collection_value_methods = [ :id, :to_s ]
 
   # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
-  # config.collection_wrapper_tag = nil
+  config.collection_wrapper_tag = :div
 
   # You can define the class to use on all collection wrappers. Defaulting to none.
   # config.collection_wrapper_class = nil
 
   # You can wrap each item in a collection of radio/check boxes with a tag,
   # defaulting to :span.
-  # config.item_wrapper_tag = :span
+  config.item_wrapper_tag = :div
 
   # You can define a class to use in all item wrappers. Defaulting to none.
   # config.item_wrapper_class = nil
@@ -117,7 +121,7 @@ SimpleForm.setup do |config|
   # config.generate_additional_classes_for = [:wrapper, :label, :input]
 
   # Whether attributes are required by default (or not). Default is true.
-  # config.required_by_default = true
+  config.required_by_default = false
 
   # Tell browsers whether to use the native HTML5 validations (novalidate form option).
   # These validations are enabled in SimpleForm's internal config but disabled by default
@@ -171,5 +175,4 @@ SimpleForm.setup do |config|
   # config.input_field_valid_class = 'is-valid'
   config.input_field_error_class = 'border-red-400'
   config.button_class = 'px-4 py-2 rounded-md bg-yellow-500 text-white'
-
 end
