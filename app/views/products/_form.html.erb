@@ -1,6 +1,7 @@
  <%= simple_form_for @product do |f| %>
  <%= f.input :name %>
  <%= f.input :price, type: :integer %>
+ <%= f.input :published %>
  <label>Foto</label>
  <%= f.file_field :cover_photo, class: "mb-2" %>
 

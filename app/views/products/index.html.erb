@@ -8,6 +8,7 @@
           <tr class="border-b h-14">
             <th class="text-left w-20 md:pl-4"></th>
             <th class="text-left">Nombre</th>
+            <th class="text-right">¿Publicado?</th>
             <th class="text-right">Precio</th>
             <th class="text-right">Unidades vendidas</th>
             <th class="text-right pr-4">Acciones</th>
@@ -22,6 +23,7 @@
               <% end %>
             </td>
             <td class="text-left"><%= product.name %></td>
+            <td class="text-right"><%= I18n.t(product.published.to_s) %></td>
             <td class="text-right"><%= currency_formatter(product.price) %></td>
             <td class="text-right"><%= OrderCalculator.total_units_taken(product) %></td>
             <td class="text-right pr-4">
