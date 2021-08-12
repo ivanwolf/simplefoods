@@ -1,6 +1,6 @@
  <%= simple_form_for @product do |f| %>
  <%= f.input :name %>
- <%= f.input :price, type: :integer, disabled: @product.order_products.any?, hint: @product.order_products.any? ? "No se puede modificar el precio si hay pedidos asociados. Por favor crea otro producto." : "" %>
+ <%= f.input :price, type: :integer %>
  <label>Foto</label>
  <%= f.file_field :cover_photo, class: "mb-2" %>
 
