@@ -1,4 +1,6 @@
 es:
+  true: ✅
+  false: ❌
   helpers:
     submit:
       workday_product:
@@ -72,6 +74,7 @@ es:
       product:
         name: "Nombre"
         price: "Precio"
+        published: ¿Publicar en la página?
       workday:
         work_date: "Fecha"
     messages:
