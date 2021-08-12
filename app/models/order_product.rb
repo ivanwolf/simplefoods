@@ -8,8 +8,9 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  store_id           :bigint           not null
-#  workday_product_id :bigint           not null
+#  workday_product_id :bigint
 #  unit_price         :integer
+#  product_id         :bigint
 #
 class OrderProduct < ApplicationRecord
   acts_as_tenant :store

@@ -1,6 +1,6 @@
 class AddPublishedToProduct < ActiveRecord::Migration[6.1]
   def change
-    add_column :products, :published, :boolean, default_value: true
+    add_column :products, :published, :boolean, default: true
 
     add_column :products, :discarded_at, :datetime
     add_index :products, :discarded_at

@@ -407,9 +407,9 @@ CREATE TABLE public.products (
     created_at timestamp(6) with time zone NOT NULL,
     updated_at timestamp(6) with time zone NOT NULL,
     store_id bigint NOT NULL,
-    published boolean,
+    published boolean DEFAULT true,
     discarded_at timestamp with time zone,
-    has_stock boolean,
+    has_stock boolean DEFAULT true,
     CONSTRAINT price_must_be_positive CHECK ((price > 0))
 );
 

@@ -8,8 +8,9 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  store_id     :bigint           not null
-#  published    :boolean
+#  published    :boolean          default(TRUE)
 #  discarded_at :datetime
+#  has_stock    :boolean          default(TRUE)
 #
 class Product < ApplicationRecord
   acts_as_tenant :store
