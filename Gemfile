@@ -24,6 +24,9 @@ gem 'kaminari'
 # Authenticate users
 gem 'devise'
 
+# Soft delete
+gem 'discard', '~> 1.2'
+
 # Check browser info from headers
 gem 'browser'
 
