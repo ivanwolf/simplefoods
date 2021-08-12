@@ -22,4 +22,8 @@ class Product < ApplicationRecord
 
   has_many :workday_products, dependent: :restrict_with_error
   has_many :order_products,  dependent: :restrict_with_error
+
+  def self.published
+    where(published: true)
+  end
 end

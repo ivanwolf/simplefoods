@@ -15,14 +15,26 @@ class OrderProduct < ApplicationRecord
   acts_as_tenant :store
 
   belongs_to :order
-  belongs_to :workday_product, optional: true
+  belongs_to :product
 
   validates :quantity, presence: true
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
 
+  # TODO: add this restriction to DB
+  validates :unit_price, presence: true
+  validates :unit_price, numericality: { greater_than_or_equal_to: 0 }
+
   delegate :name, :cover_photo, :delivery_time, to: :workday_product
 
+  after_initialize :set_unit_price, unless: :persisted?
+
   def price
-    workday_product.price * quantity
+    unit_price * quantity
+  end
+
+  private
+
+  def set_unit_price
+    self.unit_price = product.price
   end
 end

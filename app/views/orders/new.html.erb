@@ -1,18 +1,15 @@
 <% content_for :page_title do %>
-<%= @workday.store.name %> - Comida casera
+<%= current_store.name %> - Comida casera
 <% end %>
-<% content_for :meta_description do %>
-Haz tu pedido para el <%= l(@workday.work_date, format: "%A %-d de %B") %>. Llevamos el plato a la puerta de tu casa.
-<% end %>
+<%= meta_description "Haz tu pedido en #{current_store.name}. Llevamos el plato a la puerta de tu casa." %>
+
 <div class="md:px-16 py-16 px-0 flex flex-col items-center">
 
   <h1 class="text-2xl text-center md:text-3xl">Vecino, ¿qué quieres pedir?</h1>
-  <h2 class="text-lg md:text-xl text-gray-600 mb-4"><%= l(@workday.work_date, format: "%A %-d de %B").capitalize %></h2>
 
   <div class="card md:w-96">
-    <%= simple_form_for @order, url: friendly_orders_path do |f| %>
+    <%= simple_form_for @order do |f| %>
 
-    <%= f.hidden_field :workday_id, value: @workday.id %>
     <h2 class="text-lg">Datos de contacto</h2>
     <%= f.simple_fields_for :customer do |customer_fields| %>
     <div class="grid grid-cols-2 gap-1">
@@ -30,18 +27,18 @@ Haz tu pedido para el <%= l(@workday.work_date, format: "%A %-d de %B") %>. Llev
     <div class="flex w-full items-center mb-4">
       <div class="w-3/4 flex items-center">
 
-          <% if order_product_fields.object&.workday_product&.cover_photo&.attached?%>
-          <%= image_tag order_product_fields.object.workday_product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg mr-2" %>
+          <% if order_product_fields.object&.product&.cover_photo&.attached?%>
+          <%= image_tag order_product_fields.object.product.cover_photo.variant(gravity: "center", resize: "400x400^", crop: '400x400+0+0'), class: "w-10 overflow-hidden rounded-lg mr-2" %>
           <% end %>
 
         <div>
-          <div><%= order_product_fields.object&.workday_product&.name %></div>
-          <div class="text-gray-600"><%= currency_formatter(order_product_fields.object&.workday_product&.price) %> c/u</div>
+          <div><%= order_product_fields.object&.product&.name %></div>
+          <div class="text-gray-600"><%= currency_formatter(order_product_fields.object&.product&.price) %> c/u</div>
         </div>
       </div>
       <div class="w-1/4">
         <%= order_product_fields.input :quantity %>
-        <%= order_product_fields.hidden_field :workday_product_id %>
+        <%= order_product_fields.hidden_field :product_id %>
       </div>
     </div>
     <% end %>
