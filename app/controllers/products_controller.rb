@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(
-      %i[name price cover_photo published]
+      %i[name price cover_photo published has_stock]
     )
   end
 end

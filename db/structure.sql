@@ -409,6 +409,7 @@ CREATE TABLE public.products (
     store_id bigint NOT NULL,
     published boolean,
     discarded_at timestamp with time zone,
+    has_stock boolean,
     CONSTRAINT price_must_be_positive CHECK ((price > 0))
 );
 
@@ -1361,6 +1362,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210319162352'),
 ('20210322194140'),
 ('20210322232256'),
-('20210812022125');
+('20210812022125'),
+('20210812052915');
 
 

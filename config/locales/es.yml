@@ -75,6 +75,7 @@ es:
         name: "Nombre"
         price: "Precio"
         published: ¿Publicar en la página?
+        has_stock: ¿Hay stock?
       workday:
         work_date: "Fecha"
     messages:
