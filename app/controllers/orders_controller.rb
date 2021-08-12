@@ -1,5 +1,11 @@
 class OrdersController < ApplicationController
-  layout 'public'
+  before_action :authenticate_user!, only: %i[index]
+  
+  layout 'public', except: %i[index]
+
+  def index
+    @orders = Order.all.order(created_at: :desc).page(params[:page])
+  end
 
   def new
     @order = Order.new

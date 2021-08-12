@@ -1,0 +1,40 @@
+<%= page_title "Órdenes"%>
+<%= title_with_action_button "Todas las órdenes", "Pedir comida", new_order_path%>
+
+<div class="card mb-4">
+  <div class="flex flex-col mx-auto">
+    <div class="overflow-x-scroll">
+      <table class="table-fixed min-w-full">
+        <thead>
+          <tr class="border-b h-14">
+            <th class="text-right pr-4">ID</th>
+            <th class="text-left">Fecha de creación</th>
+            <th class="text-right">Cliente</th>
+            <th class="text-right">Dirección</th>
+            <th class="text-right">Total a pagar</th>
+            <th class="text-right pr-4">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each_with_index do |order, index| %>
+          <tr class="<%= index < @orders.size - 1 ? "border-b" : "" %> h-14">
+            <td class="text-right pr-4">#<%= order.id %></td>
+            <td class="text-left"><%= l(order.customer.created_at, format: '%d/%m/%Y %H:%M') %></td>
+            <td class="text-right"><%= order.customer.full_name %></td>
+            <td class="text-right"><%= order.customer.full_address %></td>
+            <td class="text-right"><%= currency_formatter(order.amount_to_pay) %></td>
+            <td class="text-right pr-4">
+              <div class="flex flex-col justify-center">
+                <%= link_to "Ver pedido", order_path(order), class: "text-blue-500 text-sm" %>
+              </div>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+     <div class="flex justify-end items-center h-12">
+        <%= paginate @orders %>
+      </div>
+  </div>
+</div>

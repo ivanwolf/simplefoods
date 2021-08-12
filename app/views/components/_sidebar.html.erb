@@ -10,6 +10,7 @@
   <% end %>
   <%= link_to Workday.model_name.human(count: 2) , workdays_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-400 rounded-md #{class_names("bg-yellow-400": request.path_info.include?("/workday"))}" %>
   <%= link_to Product.model_name.human(count: 2), products_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-400 rounded-md #{class_names("bg-yellow-400": request.path_info.include?("/products"))}" %>
+  <%= link_to Order.model_name.human(count: 2), orders_path, class: "mb-2 mx-4 px-2 py-2 hover:bg-yellow-400 rounded-md #{class_names("bg-yellow-400": request.path_info.include?("/orders"))}" %>
   <%= link_to Customer.model_name.human(count: 2), customers_path, class: "mx-4 px-2 py-2 hover:bg-yellow-400 rounded-md #{class_names("bg-yellow-400": request.path_info.include?("/customers"))}" %>
   <%= link_to "Pedir comida", new_order_path, target: "_blank", class: "mx-4 px-2 py-2 hover:bg-yellow-400 rounded-md" %>
 

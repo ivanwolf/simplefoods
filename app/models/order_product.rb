@@ -38,3 +38,9 @@ class OrderProduct < ApplicationRecord
     self.unit_price = product.price
   end
 end
+
+
+OrderProduct.all.each do |op|
+  product = Product.joins(:workday_products).where(workday_products: { id: op.workday_product_id}).take
+  op.update(product: product, unit_price: product.price) if product.present?
+end
