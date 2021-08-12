@@ -25,5 +25,9 @@ module Simplefoods
     # We want to be able to use any feature of our database,
     # and the SQL format makes that possible
     config.active_record.schema_format = :sql
+
+    config.assets.configure do |env|
+      env.export_concurrent = false
+    end
   end
 end
