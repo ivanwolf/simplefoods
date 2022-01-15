@@ -19,7 +19,7 @@
           <% @orders.each_with_index do |order, index| %>
           <tr class="<%= index < @orders.size - 1 ? "border-b" : "" %> h-14">
             <td class="text-right pr-4">#<%= order.id %></td>
-            <td class="text-left"><%= l(order.customer.created_at, format: '%d/%m/%Y %H:%M') %></td>
+            <td class="text-left"><%= l(order.created_at, format: '%d/%m/%Y %H:%M') %></td>
             <td class="text-right"><%= order.customer.full_name %></td>
             <td class="text-right"><%= order.customer.full_address %></td>
             <td class="text-right"><%= currency_formatter(order.amount_to_pay) %></td>
