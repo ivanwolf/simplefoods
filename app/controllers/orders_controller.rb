@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   layout 'public', except: %i[index]
 
   def index
-    @orders = Order.all.order(created_at: :desc).page(params[:page])
+    @orders = Order.order(created_at: :desc).page(params[:page])
   end
 
   def new
